@@ -1,21 +1,16 @@
 package net.easimer.dcctl
 
-import android.view.View
-import android.widget.EditText
 import android.widget.TextView
+import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import java.lang.NumberFormatException
 
-data class ConfigViewModel(
-    override val delay: Float,
-    override val interval: Float,
-    override val count: Int
-) : IConfigSource {
-    // ViewModel is always available as a config source
-    override val isReady: Boolean
-        get() = true
-}
+class ConfigViewModel(
+    override var delay: Float,
+    override var interval: Float,
+    override var count: Int
+) : IConfigData
 
 // Binding helpers
 
@@ -38,6 +33,26 @@ fun getFloat(view: TextView): Float {
             return sval.toFloat()
         } catch(e: NumberFormatException) {
             return 0.0f
+        }
+    }
+}
+
+
+@BindingAdapter("android:text")
+fun setInt(view: TextView, value: Int) {
+    view.setText(value.toString())
+}
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getInt(view: TextView): Int {
+    val sval = view.text.toString()
+    if(sval.isEmpty()) {
+        return 0
+    } else {
+        try {
+            return sval.toInt()
+        } catch(e: NumberFormatException) {
+            return 0
         }
     }
 }

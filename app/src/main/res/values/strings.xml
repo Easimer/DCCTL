@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">DCCTL</string>
-    <string name="config_mode">Config mode</string>
     <string name="camera_mode">Camera mode</string>
     <string name="cfg_delay">Delay</string>
+    <string name="cfg_interval">Interval</string>
+    <string name="cfg_count">Count</string>
+    <string name="btnApply">Apply</string>
+    <string name="btnPushRemote">Push to remote</string>
+    <string name="btnExecLocal">Exec locally</string>
+    <string name="config_mode">Create config</string>
+    <string name="sensor_debug">Sensor debug</string>
 </resources>
