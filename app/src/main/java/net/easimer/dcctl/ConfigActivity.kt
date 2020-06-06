@@ -33,7 +33,7 @@ class ConfigActivity : AppCompatActivity() {
     fun onPushRemoteClick(view: View) {
         broadcastConfiguration(vm) { success, name ->  
             if(success) {
-                Toast.makeText(this, "Pushed configuration to " + name, Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Pushed configuration to " + name, Toast.LENGTH_LONG).show()
             }
         }
     }

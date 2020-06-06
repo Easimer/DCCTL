@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.FrameLayout
 import java.util.*
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var camctl : CameraController
+    private var preview : CameraPreview? = null
 
     companion object {
         val EXTRA_ID = "Id"
@@ -25,6 +27,15 @@ class CameraActivity : AppCompatActivity() {
 
             if(cmdSrc != null) {
                 camctl = CameraController(this, cmdSrc)
+
+                preview = camctl.cam?.let {
+                    CameraPreview(this, it)
+                }
+
+                preview?.also {
+                    val preview: FrameLayout = findViewById(R.id.cameraPreview)
+                    preview.addView(it)
+                }
             } else {
                 throw Exception()
             }
