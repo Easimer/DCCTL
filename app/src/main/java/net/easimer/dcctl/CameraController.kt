@@ -2,6 +2,7 @@ package net.easimer.dcctl
 
 import android.app.Activity
 import android.hardware.Camera
+import android.media.MediaPlayer
 import android.os.Environment
 import android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
 import android.util.Log
@@ -22,9 +23,11 @@ fun getCameraInstance(): Camera? {
     }
 }
 
-
 class CameraController(val ctx: Activity, val cmdSrc : ICameraCommandSource) {
     val cam = getCameraInstance()
+
+    val sfxReceived = MediaPlayer.create(ctx, R.raw.received001)
+    val sfxTaken = MediaPlayer.create(ctx, R.raw.taken001)
 
     val thread  = thread {
         val TAG = "CameraControllerThread"
@@ -55,14 +58,15 @@ class CameraController(val ctx: Activity, val cmdSrc : ICameraCommandSource) {
 
     private fun executeConfig(config: IConfigData) {
         val TAG = "CameraController/exec"
-        // TODO(easimer): access camera
         Log.d(TAG, "Pre-delay: " + config.delay + "s")
+        sfxReceived.start()
         Thread.sleep((config.delay * 1000).toLong())
         Log.d(TAG, "Post-delay")
         Log.d(TAG, "Interval: " + config.interval + " count: " + config.count)
         repeat(config.count) {
             Log.d(TAG, "Snap")
             snap()
+            sfxTaken.start()
             Thread.sleep((config.interval * 1000).toLong())
         }
         Log.d(TAG, "Finished")
