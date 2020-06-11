@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
     <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickCameraMode" android:text="@string/camera_mode" />
+    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickCamera2Mode" android:text="@string/camera2_mode" />
     <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickConfigMode" android:text="@string/config_mode"/>
     <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickSensorDebug" android:text="@string/sensor_debug"/>
 </LinearLayout>

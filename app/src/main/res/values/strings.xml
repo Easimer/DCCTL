@@ -9,4 +9,5 @@
     <string name="btnExecLocal">Exec locally</string>
     <string name="config_mode">Create config</string>
     <string name="sensor_debug">Sensor debug</string>
+    <string name="camera2_mode">Camera mode (v2)</string>
 </resources>

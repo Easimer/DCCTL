@@ -39,6 +39,6 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     fun onExecLocalClick(view: View) {
-        createCameraActivity(this, LocalCommandSource(vm))
+        createCameraActivity(this, LocalCommandSource(vm), 1)
     }
 }
