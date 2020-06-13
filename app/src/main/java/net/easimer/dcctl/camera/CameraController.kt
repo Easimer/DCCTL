@@ -138,7 +138,7 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
                 imageReader =
                     ImageReader.newInstance(res.width(), res.height(), ImageFormat.JPEG, 8)
                 warmupImageReader =
-                    ImageReader.newInstance(res.width(), res.height(), ImageFormat.YUV_420_888, 8)
+                    ImageReader.newInstance(320, 240, ImageFormat.YUV_420_888, 8)
                 cameraManager.openCamera(id, object : CameraDevice.StateCallback() {
                     override fun onOpened(camera: CameraDevice) {
                         Log.d(TAG, "Camera opened")

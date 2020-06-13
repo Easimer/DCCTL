@@ -13,4 +13,5 @@
     <string name="scripting_mode">Create script</string>
     <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
     <string name="script_new_wait">Add \"Wait\"...</string>
+    <string name="script_new_audio_signal">Add \"Audio signal\"...</string>
 </resources>

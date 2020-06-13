@@ -4,4 +4,6 @@
         android:title="@string/script_new_wait"/>
     <item android:id="@+id/new_capture_multiple"
         android:title="@string/script_new_capture_multiple" />
+    <item android:id="@+id/new_audio_signal"
+        android:title="@string/script_new_audio_signal" />
 </menu>

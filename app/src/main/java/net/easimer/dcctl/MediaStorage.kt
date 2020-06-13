@@ -76,7 +76,7 @@ private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
     val relativeLocation = Environment.DIRECTORY_PICTURES + "/DCCTL"
 
     val contentValues = ContentValues()
-    contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "IMG_$timeStamp.jpg\"")
+    contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "IMG_$timeStamp")
     contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
     contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation)
 
