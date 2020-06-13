@@ -46,11 +46,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btnPushRemote"
                 android:onClick="onPushRemoteClick"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btnExecLocal"
-                android:onClick="onExecLocalClick"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

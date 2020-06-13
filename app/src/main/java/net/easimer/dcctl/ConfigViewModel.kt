@@ -1,10 +1,8 @@
 package net.easimer.dcctl
 
 import android.widget.TextView
-import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
-import java.lang.NumberFormatException
 
 class ConfigViewModel(
     var delay: Float,

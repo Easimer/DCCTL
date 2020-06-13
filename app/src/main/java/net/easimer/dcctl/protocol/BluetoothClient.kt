@@ -46,7 +46,7 @@ fun broadcastScript(script: Script, callback: (success: Boolean, name: String) -
         val TAG = "BTBroadcastCfg"
         val btAdapter = BluetoothAdapter.getDefaultAdapter()
         if (btAdapter != null) {
-            val pairedDevices: Set<BluetoothDevice>? = btAdapter?.bondedDevices
+            val pairedDevices: Set<BluetoothDevice>? = btAdapter.bondedDevices
             pairedDevices?.forEach {
                 sendConfigurationTo(it, script, callback)
             }

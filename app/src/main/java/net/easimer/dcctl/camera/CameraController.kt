@@ -6,9 +6,7 @@ import android.hardware.camera2.*
 import android.media.ImageReader
 import android.os.Handler
 import android.util.Log
-import android.view.Surface
 import net.easimer.dcctl.savePictureToMediaStorage
-import java.util.*
 
 
 private class CameraController(
@@ -97,7 +95,7 @@ private class CameraController(
 private fun getCamera(cameraManager: CameraManager): Pair<String, CameraCharacteristics>? {
     val id = cameraManager.cameraIdList.first {
         val char = cameraManager.getCameraCharacteristics(it)
-        val facing = char.get(CameraCharacteristics.LENS_FACING);
+        val facing = char.get(CameraCharacteristics.LENS_FACING)
 
         facing != null && facing == CameraCharacteristics.LENS_FACING_BACK
     }

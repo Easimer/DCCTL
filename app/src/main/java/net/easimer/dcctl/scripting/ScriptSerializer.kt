@@ -12,12 +12,10 @@ class ScriptSerializer(private val stream : OutputStream) {
 
         val json = Json.stringify(serializer, script)
 
-        if(json != null) {
-            val bytes = json.toByteArray(Charsets.UTF_8)
-            val len = bytes.size.toLong()
-            dos.writeLong(len)
-            dos.write(bytes)
-        }
+        val bytes = json.toByteArray(Charsets.UTF_8)
+        val len = bytes.size.toLong()
+        dos.writeLong(len)
+        dos.write(bytes)
 
         dos.flush()
     }

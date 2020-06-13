@@ -1,15 +1,14 @@
 package net.easimer.dcctl
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import net.easimer.dcctl.databinding.ActivityConfigBinding
 import net.easimer.dcctl.protocol.broadcastScript
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand
-import kotlin.collections.HashMap
 
 class ConfigActivity : AppCompatActivity() {
     companion object {

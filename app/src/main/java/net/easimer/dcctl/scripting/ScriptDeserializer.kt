@@ -1,10 +1,12 @@
 package net.easimer.dcctl.scripting
 
 import android.util.Log
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import java.io.*
 
 class ScriptDeserializer(private val stream : InputStream) {
+    @UnstableDefault
     fun deserialize(): Script? {
         val dis = DataInputStream(stream)
         val len = dis.readLong()

@@ -1,6 +1,5 @@
 package net.easimer.dcctl
 
-import android.R.attr.mimeType
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
@@ -44,7 +43,7 @@ private fun getOutputMediaFile(type: Int): File? {
 
     val path = "${mediaStorageDir.path}${File.separator}IMG_$timeStamp.jpg"
 
-    Log.d(TAG, "Path: ${path}")
+    Log.d(TAG, "Path: $path")
 
     return when (type) {
         MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE -> {
@@ -74,7 +73,7 @@ private fun savePictureToMediaStorageLegacy(data: ByteArray) {
 
 private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
     val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss.SSS").format(Date())
-    val relativeLocation = Environment.DIRECTORY_PICTURES + "/DCCTL";
+    val relativeLocation = Environment.DIRECTORY_PICTURES + "/DCCTL"
 
     val contentValues = ContentValues()
     contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "IMG_$timeStamp.jpg\"")
@@ -84,12 +83,12 @@ private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
     val resolver: ContentResolver = ctx.getContentResolver()
 
     try {
-        var contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        var uri = resolver.insert(contentUri, contentValues);
+        var contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        var uri = resolver.insert(contentUri, contentValues)
 
         if (uri != null)
         {
-            val stream = resolver.openOutputStream(uri);
+            val stream = resolver.openOutputStream(uri)
             if(stream != null) {
                 stream.write(data)
                 stream.close()

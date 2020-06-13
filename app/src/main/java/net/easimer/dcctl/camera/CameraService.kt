@@ -5,13 +5,9 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.IBinder
-import android.os.Looper
-import android.renderscript.Script
 import android.util.Log
 import net.easimer.dcctl.protocol.BluetoothServer2
 import net.easimer.dcctl.protocol.createBluetoothServer2
-import java.util.concurrent.Semaphore
-import kotlin.concurrent.thread
 
 class CameraService : Service() {
     private val TAG = "CameraService"
@@ -39,7 +35,7 @@ class CameraService : Service() {
             }
         }
 
-        return START_STICKY;
+        return START_STICKY
     }
 
     override fun onDestroy() {
