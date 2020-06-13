@@ -15,23 +15,28 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CameraServiceActivity"></activity>
+        <activity
+            android:name=".CameraServiceActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <service
             android:name=".camera.CameraService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".scripting.ScriptActivity" />
         <activity
-            android:name=".SensorDebug"
+            android:name=".scripting.ScriptActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".CameraActivity"
+            android:name=".SensorDebug"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

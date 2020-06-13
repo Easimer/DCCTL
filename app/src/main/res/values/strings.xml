@@ -11,4 +11,6 @@
     <string name="sensor_debug">Sensor debug</string>
     <string name="camera_service">Camera service (v2)</string>
     <string name="scripting_mode">Create script</string>
+    <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
+    <string name="script_new_wait">Add \"Wait\"...</string>
 </resources>
