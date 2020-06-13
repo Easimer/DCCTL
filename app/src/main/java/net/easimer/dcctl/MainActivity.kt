@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import net.easimer.dcctl.scripting.ScriptActivity
 
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity"
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickScriptingMode(view: View) {
-
+        val intent = Intent(this, ScriptActivity::class.java)
+        startActivity(intent)
     }
 }
