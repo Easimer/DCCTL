@@ -9,6 +9,7 @@ import net.easimer.dcctl.databinding.ActivityConfigBinding
 import net.easimer.dcctl.protocol.broadcastScript
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.SoundEffect
 
 class ConfigActivity : AppCompatActivity() {
     companion object {

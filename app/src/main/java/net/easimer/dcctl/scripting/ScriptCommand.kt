@@ -8,4 +8,6 @@ sealed class ScriptCommand {
     data class Wait(val time: Float) : ScriptCommand()
     @Serializable
     data class CaptureMultiple(val interval: Float, val count: Int) : ScriptCommand()
+    @Serializable
+    data class AudioSignal(val id : SoundEffect) : ScriptCommand()
 }

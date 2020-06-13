@@ -18,6 +18,7 @@ class ScriptExecutor(private val ctx : Context, private val camera : ICameraCont
             when(it) {
                 is ScriptCommand.Wait -> execute(it)
                 is ScriptCommand.CaptureMultiple -> execute(it)
+                is ScriptCommand.AudioSignal -> execute(it)
             }
         }
     }
@@ -35,5 +36,10 @@ class ScriptExecutor(private val ctx : Context, private val camera : ICameraCont
             camera.takePicture()
             Thread.sleep((cmd.interval * 1000).toLong())
         }
+    }
+
+    private fun execute(cmd: ScriptCommand.AudioSignal) {
+        Log.d(TAG, "Playing sfx ${cmd.id}")
+        sfx.playEffect(cmd.id)
     }
 }
