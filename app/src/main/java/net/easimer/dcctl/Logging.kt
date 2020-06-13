@@ -1,9 +1,6 @@
 package net.easimer.dcctl
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import java.util.*
-import java.util.concurrent.locks.Lock
 
 enum class LogLevel {
     Debug,

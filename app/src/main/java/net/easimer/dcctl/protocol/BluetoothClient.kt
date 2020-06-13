@@ -3,6 +3,7 @@ package net.easimer.dcctl.protocol
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import net.easimer.dcctl.Log
+import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptSerializer
 import java.util.*
@@ -27,7 +28,7 @@ private fun sendConfigurationTo(dev: BluetoothDevice, script: Script, callback: 
                         callback(true, dev.name)
                     }
                 } else {
-                    Log.d(TAG, "Socket not connected")
+                    Log.d(TAG, "Socket not connected", LogLevel.Error)
                 }
                 s.close()
             } catch(e: Exception) {
@@ -38,7 +39,6 @@ private fun sendConfigurationTo(dev: BluetoothDevice, script: Script, callback: 
             callback(false, dev.name)
         }
     }
-    Log.d("ASD", "Thread Fired")
 }
 
 fun broadcastScript(script: Script, callback: (success: Boolean, name: String) -> Unit) {
@@ -51,7 +51,7 @@ fun broadcastScript(script: Script, callback: (success: Boolean, name: String) -
                 sendConfigurationTo(it, script, callback)
             }
         } else {
-            Log.d(TAG, "No btAdapter")
+            Log.d(TAG, "No btAdapter", LogLevel.Error)
         }
     }
 }

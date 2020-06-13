@@ -7,6 +7,7 @@ import android.media.ImageReader
 import android.os.Handler
 import android.widget.Toast
 import net.easimer.dcctl.Log
+import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.savePictureToMediaStorage
 
 
@@ -65,6 +66,7 @@ private class CameraController(
             captureSession.capture(builder.build(), captureCallback, handler)
 
         } catch(e : Exception) {
+            Log.d(TAG, "Capture request creation failed: ${e.message}", LogLevel.Error)
             e.printStackTrace()
         }
     }
@@ -77,6 +79,7 @@ private class CameraController(
             captureSession.setRepeatingRequest(builder.build(), captureCallback, handler)
 
         } catch(e : Exception) {
+            Log.d(TAG, "Warmup capture request creation failed: ${e.message}", LogLevel.Error)
             e.printStackTrace()
         }
     }
@@ -172,7 +175,7 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
                             else -> "unknown (code=$error)"
                         }
 
-                        Log.d(TAG, "Camera error $error: \"$msg\"")
+                        Log.d(TAG, "Camera error $error: \"$msg\"", LogLevel.Error)
                         Toast.makeText(ctx, "Camera error: $msg", Toast.LENGTH_LONG).show()
                         camera.close()
                     }
@@ -180,9 +183,9 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
             }
         }
     } catch (sec : SecurityException) {
-        Log.d(TAG, "SecurityException")
+        Log.d(TAG, "SecurityException: ${sec.message}", LogLevel.Error)
         throw sec
     } catch(e: Exception) {
-        Log.d(TAG, "Exception: $e")
+        Log.d(TAG, "Exception: ${e.message}", LogLevel.Error)
     }
 }

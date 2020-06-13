@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothServerSocket
 import android.content.Context
 import net.easimer.dcctl.Log
 import android.widget.Toast
+import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.scripting.ScriptDeserializer
 import java.util.*
 import kotlin.concurrent.thread
@@ -28,7 +29,7 @@ class BluetoothServer2(private val socket: BluetoothServerSocket, private val cm
                         }
                         ser.close()
                     } catch (e: Exception) {
-                        Log.d(TAG, "Client error: $e")
+                        Log.d(TAG, "Client error: ${e.message}", LogLevel.Error)
                     } finally {
                         csocket.close()
                     }

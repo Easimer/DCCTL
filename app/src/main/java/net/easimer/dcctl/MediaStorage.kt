@@ -32,7 +32,7 @@ private fun getOutputMediaFile(type: Int): File? {
     mediaStorageDir.apply {
         if (!exists()) {
             if (!mkdirs()) {
-                Log.d("CameraController/IO", "failed to create directory")
+                Log.d("CameraController/IO", "failed to create directory", LogLevel.Error)
                 return null
             }
         }
@@ -65,9 +65,9 @@ private fun savePictureToMediaStorageLegacy(data: ByteArray) {
         fos.close()
         Log.d(TAG, "File saved")
     } catch (e: FileNotFoundException) {
-        Log.d(TAG, "File not found: ${e.message}")
+        Log.d(TAG, "File not found: ${e.message}", LogLevel.Error)
     } catch (e: IOException) {
-        Log.d(TAG, "Error accessing file: ${e.message}")
+        Log.d(TAG, "Error accessing file: ${e.message}", LogLevel.Error)
     }
 }
 
@@ -94,15 +94,15 @@ private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
                 stream.close()
                 Log.d(TAG, "File saved")
             } else {
-                Log.d(TAG, "Failed to open output stream")
+                Log.d(TAG, "Failed to open output stream", LogLevel.Error)
             }
         } else {
-            Log.d(TAG, "URI resolve failure")
+            Log.d(TAG, "URI resolve failure", LogLevel.Error)
         }
     } catch (e: FileNotFoundException) {
-        Log.d(TAG, "File not found: ${e.message}")
+        Log.d(TAG, "File not found: ${e.message}", LogLevel.Error)
     } catch (e: IOException) {
-        Log.d(TAG, "Error accessing file: ${e.message}")
+        Log.d(TAG, "Error accessing file: ${e.message}", LogLevel.Error)
     }
 }
 
