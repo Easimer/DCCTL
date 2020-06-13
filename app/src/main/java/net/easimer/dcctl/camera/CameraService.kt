@@ -30,7 +30,7 @@ class CameraService : Service() {
         handler.post {
             Log.d(TAG, "StartCommand on thread")
             tryCreatingController(this, handler) {
-                executor = ScriptExecutor(it)
+                executor = ScriptExecutor(this, it)
                 btSrv = createBluetoothServer2(this, executor)
             }
         }
