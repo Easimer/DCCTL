@@ -14,4 +14,5 @@
     <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
     <string name="script_new_wait">Add \"Wait\"...</string>
     <string name="script_new_audio_signal">Add \"Audio signal\"...</string>
+    <string name="session_log">Session log</string>
 </resources>

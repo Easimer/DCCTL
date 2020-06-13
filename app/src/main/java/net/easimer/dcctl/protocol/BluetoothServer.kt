@@ -3,7 +3,7 @@ package net.easimer.dcctl.protocol
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothServerSocket
 import android.content.Context
-import android.util.Log
+import net.easimer.dcctl.Log
 import android.widget.Toast
 import net.easimer.dcctl.scripting.ScriptDeserializer
 import java.util.*

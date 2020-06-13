@@ -2,7 +2,7 @@ package net.easimer.dcctl.protocol
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.util.Log
+import net.easimer.dcctl.Log
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptSerializer
 import java.util.*

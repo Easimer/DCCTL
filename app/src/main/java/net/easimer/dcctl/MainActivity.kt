@@ -50,4 +50,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, ScriptActivity::class.java)
         startActivity(intent)
     }
+
+    fun onClickLogMode(view: View) {
+        val intent = Intent(this, LogActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -15,6 +15,7 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LogActivity"></activity>
         <activity
             android:name=".CameraServiceActivity"
             android:parentActivityName=".MainActivity">

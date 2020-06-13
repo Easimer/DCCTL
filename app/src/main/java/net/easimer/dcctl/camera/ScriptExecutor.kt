@@ -1,8 +1,8 @@
 package net.easimer.dcctl.camera
 
 import android.content.Context
-import android.util.Log
 import net.easimer.dcctl.AudioNotifications
+import net.easimer.dcctl.Log
 import net.easimer.dcctl.protocol.ICommandSink
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand

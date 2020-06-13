@@ -5,7 +5,8 @@ import android.graphics.ImageFormat
 import android.hardware.camera2.*
 import android.media.ImageReader
 import android.os.Handler
-import android.util.Log
+import android.widget.Toast
+import net.easimer.dcctl.Log
 import net.easimer.dcctl.savePictureToMediaStorage
 
 
@@ -81,10 +82,15 @@ private class CameraController(
     }
 
     override fun close() {
+        Log.d(TAG, "Stopping capture session")
         captureSession.stopRepeating()
-        captureSession.abortCaptures()
         captureSession.close()
+        Log.d(TAG, "Closing camera device")
         cameraDevice.close()
+
+        Log.d(TAG, "Closing image readers")
+        imageReader.close()
+        warmupImageReader.close()
     }
 
     override fun takePicture() {
@@ -152,9 +158,23 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
                         }, handler)
                     }
 
-                    override fun onDisconnected(camera: CameraDevice) {}
+                    override fun onDisconnected(camera: CameraDevice) {
+                        camera.close()
+                    }
+
                     override fun onError(camera: CameraDevice, error: Int) {
-                        Log.d(TAG, "Camera error $error")
+                        val msg = when(error) {
+                            ERROR_CAMERA_IN_USE -> "camera in use"
+                            ERROR_CAMERA_DEVICE -> "hardware failure"
+                            ERROR_CAMERA_DISABLED -> "camera disabled"
+                            ERROR_CAMERA_SERVICE -> "camera service failure"
+                            ERROR_MAX_CAMERAS_IN_USE -> "too many cameras in use"
+                            else -> "unknown (code=$error)"
+                        }
+
+                        Log.d(TAG, "Camera error $error: \"$msg\"")
+                        Toast.makeText(ctx, "Camera error: $msg", Toast.LENGTH_LONG).show()
+                        camera.close()
                     }
                 }, handler)
             }

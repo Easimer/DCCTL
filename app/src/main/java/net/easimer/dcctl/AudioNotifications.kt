@@ -4,8 +4,6 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.util.Log
-import androidx.core.content.getSystemService
 import net.easimer.dcctl.scripting.SoundEffect
 
 class AudioNotifications(ctx: Context) {

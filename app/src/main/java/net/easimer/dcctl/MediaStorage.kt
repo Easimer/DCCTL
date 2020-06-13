@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
+import net.easimer.dcctl.Log
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
