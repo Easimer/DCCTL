@@ -7,10 +7,10 @@ import androidx.databinding.InverseBindingAdapter
 import java.lang.NumberFormatException
 
 class ConfigViewModel(
-    override var delay: Float,
-    override var interval: Float,
-    override var count: Int
-) : IConfigData
+    var delay: Float,
+    var interval: Float,
+    var count: Int
+)
 
 // Binding helpers
 

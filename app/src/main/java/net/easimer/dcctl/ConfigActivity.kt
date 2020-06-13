@@ -1,20 +1,15 @@
 package net.easimer.dcctl
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import net.easimer.dcctl.databinding.ActivityConfigBinding
-import java.util.*
+import net.easimer.dcctl.protocol.broadcastScript
+import net.easimer.dcctl.scripting.Script
+import net.easimer.dcctl.scripting.ScriptCommand
 import kotlin.collections.HashMap
-
-const val BUNDLE_CONFIG_DELAY = "CfgDelay"
-const val BUNDLE_CONFIG_INTERVAL = "CfgInterval"
-const val BUNDLE_CONFIG_COUNT = "CfgCount"
-
-val gCommandSourceStorage = HashMap<String, ICameraCommandSource>()
 
 class ConfigActivity : AppCompatActivity() {
     companion object {
@@ -25,20 +20,24 @@ class ConfigActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_config)
         val binding: ActivityConfigBinding = DataBindingUtil.setContentView(this, R.layout.activity_config)
         binding.config = vm
     }
 
     fun onPushRemoteClick(view: View) {
-        broadcastConfiguration(vm) { success, name ->  
-            if(success) {
-                Toast.makeText(applicationContext, "Pushed configuration to " + name, Toast.LENGTH_LONG).show()
+        val cmdWait = ScriptCommand.Wait(vm.delay)
+        val cmdCapture = ScriptCommand.CaptureMultiple(vm.interval, vm.count)
+        val script = Script(listOf(cmdWait, cmdCapture))
+
+        broadcastScript(script) { success, name ->
+            if (success) {
+                val toast = Toast.makeText(
+                    this,
+                    "Pushed configuration to $name",
+                    Toast.LENGTH_LONG
+                )
+                toast.show()
             }
         }
-    }
-
-    fun onExecLocalClick(view: View) {
-        createCameraActivity(this, LocalCommandSource(vm), 1)
     }
 }
