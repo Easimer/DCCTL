@@ -28,16 +28,16 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="AUTOFILL_TYPE_NONE"
                 android:hint="@string/cfg_interval"
-                android:inputType="number" />
-            <!--android:text="@={cmd.interval}" /> -->
+                android:inputType="number"
+                android:text="@={cmd.interval}" />
             <EditText
                 android:id="@+id/cfgCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="AUTOFILL_TYPE_NONE"
                 android:hint="@string/cfg_count"
-                android:inputType="number" />
-            <!-- android:text="@={cmd.count}" /> -->
+                android:inputType="number"
+                android:text="@={cmd.count}" />
         </LinearLayout>
 
         <Button

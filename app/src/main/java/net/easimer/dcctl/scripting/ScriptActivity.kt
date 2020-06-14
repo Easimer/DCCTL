@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,11 +24,23 @@ class ScriptActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val script = LinkedList<ScriptCommand>()
     private val deleter = CommandDeleter(script) { cmd ->
-        val idx = script.indexOf(cmd)
+        val idx = script.indexOfRef(cmd)
         script.removeAt(idx)
         viewAdapter.notifyItemRemoved(idx)
         Log.d("ScriptActivity", "Removed item $idx")
     }
+
+    private fun <T> List<T>.indexOfRef(elem : T) : Int {
+        var ret = -1
+        forEachIndexed { i, it ->
+            if(elem === it) {
+                ret = i
+            }
+        }
+
+        return ret
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +78,8 @@ class ScriptActivity : AppCompatActivity() {
             val idx = script.size
             script.add(cmd)
             viewAdapter.submitList(script)
-            //viewAdapter.notifyDataSetChanged()
-            //viewAdapter.notifyItemInserted(idx)
+            viewAdapter.notifyDataSetChanged()
+            viewAdapter.notifyItemInserted(idx)
             return true
         } else {
             if(item.itemId == R.id.send) {
@@ -148,7 +158,7 @@ class ScriptActivity : AppCompatActivity() {
         }
 
         class AudioSignal(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
-            : CommandView<ScriptCommand.AudioSignal>(ctx, deleteCallback) {
+            : CommandView<ScriptCommand.AudioSignal>(ctx, deleteCallback), AdapterView.OnItemSelectedListener {
             private val binding
                     = AudioSignalCommandViewBinding.inflate(inflater)
 
@@ -163,7 +173,28 @@ class ScriptActivity : AppCompatActivity() {
 
             init {
                 addView(binding.root)
+                val spinner = binding.root.findViewById<Spinner>(R.id.spinner)
+                spinner.adapter = ArrayAdapter<SoundEffect>(ctx, R.layout.support_simple_spinner_dropdown_item, SoundEffect.values())
+                spinner.onItemSelectedListener = this
                 attachDeleter()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                cmd.id = SoundEffect.Blip
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                parent?.also {
+                    val item = parent.getItemAtPosition(position)
+                    if(item is SoundEffect) {
+                        cmd.id = item
+                    }
+                }
             }
         }
 
@@ -180,7 +211,7 @@ class ScriptActivity : AppCompatActivity() {
 
     private class CommandDiffCallback : DiffUtil.ItemCallback<ScriptCommand>() {
         override fun areItemsTheSame(oldItem: ScriptCommand, newItem: ScriptCommand): Boolean {
-            return oldItem == newItem
+            return oldItem === newItem
         }
 
         override fun areContentsTheSame(oldItem: ScriptCommand, newItem: ScriptCommand): Boolean {

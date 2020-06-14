@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!-- android:text="@={cmd.time}" /> -->
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@={cmd.time}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
