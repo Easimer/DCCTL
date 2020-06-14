@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.R
 import net.easimer.dcctl.databinding.AudioSignalCommandViewBinding
+import net.easimer.dcctl.databinding.BlinkCommandViewBinding
 import net.easimer.dcctl.databinding.CaptureMultipleCommandViewBinding
 import net.easimer.dcctl.databinding.WaitCommandViewBinding
 import net.easimer.dcctl.protocol.broadcastScript
@@ -70,6 +71,8 @@ class ScriptActivity : AppCompatActivity() {
                 ScriptCommand.CaptureMultiple(1.0f, 3)
             R.id.new_audio_signal ->
                 ScriptCommand.AudioSignal(SoundEffect.Blip)
+            R.id.new_blink ->
+                ScriptCommand.Blink(0.5f)
             else ->
                 null
         }
@@ -198,6 +201,24 @@ class ScriptActivity : AppCompatActivity() {
             }
         }
 
+        class Blink(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
+            : CommandView<ScriptCommand.Blink>(ctx, deleteCallback) {
+            private val binding
+                    = BlinkCommandViewBinding.inflate(inflater)
+            override var cmd = ScriptCommand.Blink(0.0f)
+
+            override fun bindTo(cmd: ScriptCommand) {
+                if(cmd is ScriptCommand.Blink) {
+                    this.cmd = cmd
+                    binding.cmd = cmd
+                }
+            }
+
+            init {
+                addView(binding.root)
+                attachDeleter()
+            }
+        }
 
         fun attachDeleter() {
             val deleteButton = findViewById<View>(R.id.deleteButton)
@@ -234,6 +255,7 @@ class ScriptActivity : AppCompatActivity() {
                 CMD_WAIT -> CommandView.Wait(ctx, deleter.callback)
                 CMD_CAPTURE_MULTIPLE -> CommandView.CaptureMultiple(ctx, deleter.callback)
                 CMD_AUDIO_SIGNAL -> CommandView.AudioSignal(ctx, deleter.callback)
+                CMD_BLINK -> CommandView.Blink(ctx, deleter.callback)
                 else -> CommandView.Wait(ctx, deleter.callback)
             }
             setLayout(v)
@@ -249,6 +271,7 @@ class ScriptActivity : AppCompatActivity() {
                 is ScriptCommand.Wait -> CMD_WAIT
                 is ScriptCommand.CaptureMultiple -> CMD_CAPTURE_MULTIPLE
                 is ScriptCommand.AudioSignal -> CMD_AUDIO_SIGNAL
+                is ScriptCommand.Blink -> CMD_BLINK
             }
         }
 
@@ -256,6 +279,7 @@ class ScriptActivity : AppCompatActivity() {
             private const val CMD_WAIT = 0
             private const val CMD_CAPTURE_MULTIPLE = 1
             private const val CMD_AUDIO_SIGNAL = 2
+            private const val CMD_BLINK = 3
         }
 
     }

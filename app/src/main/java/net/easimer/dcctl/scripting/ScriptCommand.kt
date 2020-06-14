@@ -10,4 +10,6 @@ sealed class ScriptCommand {
     data class CaptureMultiple(var interval: Float, var count: Int) : ScriptCommand()
     @Serializable
     data class AudioSignal(var id : SoundEffect) : ScriptCommand()
+    @Serializable
+    data class Blink(var hold: Float) : ScriptCommand()
 }

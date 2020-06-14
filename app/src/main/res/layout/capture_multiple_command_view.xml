@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="AUTOFILL_TYPE_NONE"
                 android:hint="@string/cfg_interval"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:text="@={cmd.interval}" />
             <EditText
                 android:id="@+id/cfgCount"

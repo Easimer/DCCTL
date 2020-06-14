@@ -11,6 +11,9 @@
     <item android:id="@+id/new_capture_multiple"
         android:title="@string/script_new_capture_multiple"
         app:showAsAction="never"/>
+    <item android:id="@+id/new_blink"
+        android:title="@string/script_new_blink"
+        app:showAsAction="never"/>
     <item android:id="@+id/new_audio_signal"
         android:title="@string/script_new_audio_signal"
         app:showAsAction="never"/>

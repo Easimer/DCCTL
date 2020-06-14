@@ -39,7 +39,7 @@ private class CameraController(
             it.acquireNextImage().close()
         }, handler)
 
-        createWarmupCaptureRequest()
+        createWarmupCaptureRequest(false)
     }
 
     private val captureCallback = object : CameraCaptureSession.CaptureCallback() {
@@ -71,10 +71,14 @@ private class CameraController(
         }
     }
 
-    private fun createWarmupCaptureRequest() {
+    private fun createWarmupCaptureRequest(enableFlash : Boolean) {
         try {
             val builder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             builder.addTarget(warmupImageReader.surface)
+
+            if(enableFlash) {
+                builder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
+            }
 
             captureSession.setRepeatingRequest(builder.build(), captureCallback, handler)
 
@@ -98,6 +102,10 @@ private class CameraController(
 
     override fun takePicture() {
         createCaptureRequest()
+    }
+
+    override fun toggleFlash(enable : Boolean) {
+        createWarmupCaptureRequest(enable)
     }
 }
 

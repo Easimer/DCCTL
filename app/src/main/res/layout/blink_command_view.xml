@@ -6,13 +6,12 @@
     <data>
         <variable
             name="cmd"
-            type="net.easimer.dcctl.scripting.ScriptCommand.Wait" />
+            type="net.easimer.dcctl.scripting.ScriptCommand.Blink" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <ImageButton
             android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
@@ -28,22 +27,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/cmd_wait"
+            android:text="@string/cmd_blink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/cfgDelay"
+            android:id="@+id/cfgHold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:hint="@string/cfg_delay"
+            android:hint="@string/cfg_hold"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@={cmd.time}" />
+            android:text="@={cmd.hold}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

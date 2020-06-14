@@ -19,6 +19,7 @@ class ScriptExecutor(private val ctx : Context, private val camera : ICameraCont
                 is ScriptCommand.Wait -> execute(it)
                 is ScriptCommand.CaptureMultiple -> execute(it)
                 is ScriptCommand.AudioSignal -> execute(it)
+                is ScriptCommand.Blink -> execute(it)
             }
         }
     }
@@ -41,5 +42,12 @@ class ScriptExecutor(private val ctx : Context, private val camera : ICameraCont
     private fun execute(cmd: ScriptCommand.AudioSignal) {
         Log.d(TAG, "Playing sfx ${cmd.id}")
         sfx.playEffect(cmd.id)
+    }
+
+    private fun execute(cmd: ScriptCommand.Blink) {
+        Log.d(TAG, "Blink hold=${cmd.hold} secs")
+        camera.toggleFlash(true)
+        Thread.sleep((cmd.hold * 1000).toLong())
+        camera.toggleFlash(false)
     }
 }
