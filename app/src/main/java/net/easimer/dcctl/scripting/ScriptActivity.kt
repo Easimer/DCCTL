@@ -200,7 +200,7 @@ class ScriptActivity : AppCompatActivity() {
 
 
         fun attachDeleter() {
-            val deleteButton = findViewById<Button>(R.id.deleteButton)
+            val deleteButton = findViewById<View>(R.id.deleteButton)
             deleteButton?.setOnClickListener {
                 deleteCallback(cmd)
             }

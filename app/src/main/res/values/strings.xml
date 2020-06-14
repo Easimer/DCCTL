@@ -7,10 +7,10 @@
     <string name="btnApply">Apply</string>
     <string name="btnPushRemote">Push to remote</string>
     <string name="btnExecLocal">Exec locally</string>
-    <string name="config_mode">Create config</string>
+    <string name="config_mode">Create simple script</string>
     <string name="sensor_debug">Sensor debug</string>
     <string name="camera_service">Camera service (v2)</string>
-    <string name="scripting_mode">Create script</string>
+    <string name="scripting_mode">Create complex script</string>
     <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
     <string name="script_new_wait">Add \"Wait\"...</string>
     <string name="script_new_audio_signal">Add \"Audio signal\"...</string>
