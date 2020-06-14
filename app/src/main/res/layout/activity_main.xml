@@ -5,9 +5,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickCameraService" android:text="@string/camera_service" />
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickConfigMode" android:text="@string/config_mode"/>
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickScriptingMode" android:text="@string/scripting_mode"/>
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickSensorDebug" android:text="@string/sensor_debug"/>
-    <Button android:layout_height="wrap_content" android:layout_width="match_parent" android:onClick="onClickLogMode" android:text="@string/session_log"/>
+    <Button
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:onClick="onClickCameraService"
+        android:text="@string/camera_service"
+        android:drawableStart="@drawable/camera"
+        />
+    <Button
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:onClick="onClickConfigMode"
+        android:text="@string/config_mode"
+        android:drawableStart="@drawable/scripting"
+        />
+    <Button
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:onClick="onClickScriptingMode"
+        android:text="@string/scripting_mode"
+        android:drawableStart="@drawable/scripting"
+        />
+    <Button
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:onClick="onClickSensorDebug"
+        android:text="@string/sensor_debug"
+        android:drawableStart="@drawable/sensor"
+        />
+    <Button
+        android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:onClick="onClickLogMode"
+        android:text="@string/session_log"
+        android:drawableStart="@drawable/log"
+        />
 </LinearLayout>
