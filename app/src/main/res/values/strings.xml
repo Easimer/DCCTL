@@ -19,4 +19,5 @@
     <string name="cmd_wait">Wait</string>
     <string name="cmd_capture_multiple">Cap. multi.</string>
     <string name="cmd_audio_signal">Signal</string>
+    <string name="send_script">Send</string>
 </resources>
