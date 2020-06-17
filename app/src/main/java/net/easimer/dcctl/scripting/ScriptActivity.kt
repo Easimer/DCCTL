@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -88,7 +89,14 @@ class ScriptActivity : AppCompatActivity() {
             if(item.itemId == R.id.send) {
                 val script = Script(script)
 
-                broadcastScript(script) { success, name ->
+                val excludedDevicesDefault = HashSet<String>()
+
+                val pref = PreferenceManager.getDefaultSharedPreferences(this)
+                val excludedDevicesPref = pref.getStringSet("excluded_devices", excludedDevicesDefault)
+                val excludedDevices =
+                    if (excludedDevicesPref != null) excludedDevicesPref else excludedDevicesDefault
+
+                broadcastScript(script, { success, name ->
                     if (success) {
                         val toast = Toast.makeText(
                             this,
@@ -97,7 +105,8 @@ class ScriptActivity : AppCompatActivity() {
                         )
                         toast.show()
                     }
-                }
+                }, { id -> !excludedDevices.contains(id) })
+
                 return true
             } else {
                 return super.onOptionsItemSelected(item)

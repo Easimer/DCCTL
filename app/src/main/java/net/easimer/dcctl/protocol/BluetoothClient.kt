@@ -2,6 +2,7 @@ package net.easimer.dcctl.protocol
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.content.SharedPreferences
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.scripting.Script
@@ -41,17 +42,40 @@ private fun sendConfigurationTo(dev: BluetoothDevice, script: Script, callback: 
     }
 }
 
-fun broadcastScript(script: Script, callback: (success: Boolean, name: String) -> Unit) {
+/**
+ * Try to broadcast script to all paired Bluetooth devices that match the filter.
+ * This function runs asynchronously on it's own thread.
+ *
+ * @param script The script to broadcast.
+ * @param callback Called for every device we successfully sent the config to.
+ * @param destinationFilter Filter function. Should return true if we should send the script to the
+ * target device.
+ */
+fun broadcastScript(script: Script, callback: (success: Boolean, name: String) -> Unit, destinationFilter: (id: String) -> Boolean) {
     thread {
         val TAG = "BTBroadcastCfg"
         val btAdapter = BluetoothAdapter.getDefaultAdapter()
         if (btAdapter != null) {
             val pairedDevices: Set<BluetoothDevice>? = btAdapter.bondedDevices
             pairedDevices?.forEach {
-                sendConfigurationTo(it, script, callback)
+                if(destinationFilter(it.address)) {
+                    sendConfigurationTo(it, script, callback)
+                } else {
+                    Log.d(TAG, "Skipped dest ${it.name} because it was excluded by the user", LogLevel.Note)
+                }
             }
         } else {
             Log.d(TAG, "No btAdapter", LogLevel.Error)
+        }
+    }
+}
+
+fun forEachPairedBluetoothDevice(callback: (name: String, id: String) -> Unit) {
+    val btAdapter = BluetoothAdapter.getDefaultAdapter()
+    if(btAdapter != null) {
+        val pairedDevices: Set<BluetoothDevice>? = btAdapter.bondedDevices
+        pairedDevices?.forEach {
+            callback(it.name, it.address)
         }
     }
 }
