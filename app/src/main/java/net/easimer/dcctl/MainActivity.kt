@@ -32,27 +32,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickConfigMode(view: View) {
-        val intent = Intent(this, ConfigActivity::class.java)
-        startActivity(intent)
+        startIntentOfType<ConfigActivity>()
     }
 
     fun onClickSensorDebug(view: View) {
-        val intent = Intent(this, SensorDebug::class.java)
-        startActivity(intent)
+        startIntentOfType<SensorDebug>()
     }
 
     fun onClickCameraService(view: View) {
-        val intent = Intent(this, CameraServiceActivity::class.java)
-        startActivity(intent)
+        startIntentOfType<CameraServiceActivity>()
     }
 
     fun onClickScriptingMode(view: View) {
-        val intent = Intent(this, ScriptActivity::class.java)
-        startActivity(intent)
+        startIntentOfType<ScriptActivity>()
     }
 
     fun onClickLogMode(view: View) {
-        val intent = Intent(this, LogActivity::class.java)
+        startIntentOfType<LogActivity>()
+    }
+
+    fun onClickPreferences(view: View) {
+        startIntentOfType<SettingsActivity>()
+    }
+
+    private inline fun <reified T> startIntentOfType() {
+        val intent = Intent(this, T::class.java)
         startActivity(intent)
     }
 }
