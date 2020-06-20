@@ -98,12 +98,14 @@ class ScriptActivity : AppCompatActivity() {
 
                 broadcastScript(script, { success, name ->
                     if (success) {
-                        val toast = Toast.makeText(
-                            this,
-                            "Pushed configuration to $name",
-                            Toast.LENGTH_LONG
-                        )
-                        toast.show()
+                        runOnUiThread {
+                            val toast = Toast.makeText(
+                                this,
+                                "Pushed configuration to $name",
+                                Toast.LENGTH_LONG
+                            )
+                            toast.show()
+                        }
                     }
                 }, { id -> !excludedDevices.contains(id) })
 
