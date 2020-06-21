@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import net.easimer.dcctl.scripting.ScriptActivity
+import net.easimer.dcctl.scripting.ui.ScriptActivity
 
 const val MAIN_ACTIVITY_REQUEST_STOP_CAMERA_SERVICE = 1
 const val MAIN_ACTIVITY_EXTRA_REQUEST = "Request"
