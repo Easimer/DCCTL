@@ -109,6 +109,10 @@ private class CameraController(
 
     override fun toggleFlash(enable : Boolean) {
         createWarmupCaptureRequest(enable)
+
+        if(enable) {
+            stats.onBlinked()
+        }
     }
 
     @Synchronized

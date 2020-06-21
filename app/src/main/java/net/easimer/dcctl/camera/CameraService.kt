@@ -47,11 +47,9 @@ class CameraService : Service() {
                 btSrv?.addStatisticsListener(object : BluetoothServerStatisticsListener() {
                     override fun onNumberOfScriptsReceivedChanged(numberOfScriptsReceived : Int) {
                         notification.update(
-                            CameraServiceNotification.NotificationStat(
-                                "btConn",
-                                numberOfScriptsReceived,
-                                R.string.notification_stat_connections
-                            )
+                            "btConn",
+                            numberOfScriptsReceived,
+                            R.string.notification_stat_connections
                         )
                     }
                 })
@@ -60,11 +58,17 @@ class CameraService : Service() {
                 controller?.addStatisticsListener(object : CameraControllerStatisticsListener() {
                     override fun onNumberOfPicturesTakenChanged(numberOfPicturesTaken: Int) {
                         notification.update(
-                            CameraServiceNotification.NotificationStat(
-                                "camPicsTaken",
-                                numberOfPicturesTaken,
-                                R.string.notification_stat_pictures_taken
-                            )
+                            "camPicsTaken",
+                            numberOfPicturesTaken,
+                            R.string.notification_stat_pictures_taken
+                        )
+                    }
+
+                    override fun onNumberOfTimesBlinkedChanged(numberOfTimesBlinked: Int) {
+                        notification.update(
+                            "camTimesBlinked",
+                            numberOfTimesBlinked,
+                            R.string.notification_stat_times_blinked
                         )
                     }
                 })

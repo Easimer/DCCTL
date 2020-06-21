@@ -47,20 +47,24 @@ class CameraServiceNotification(private val ctx: Service) {
         ctx.startForeground(1, builder.build())
     }
 
-    fun update(kv: NotificationStat) {
-        stats.put(kv.key, kv)
+    fun update(key: String, value: Int, fmt: Int) {
+        stats.put(key, NotificationStat(key, value, fmt))
 
         val contentText = stats
             .map { it.value }
-                // Sort the stat entries by key
+            // Sort the stat entries by key
             .sortedBy { it.key }
-                // Map the stat entry to the user readable text
+            // Map the stat entry to the user readable text
             .map{ kv -> String.format(ctx.getText(kv.fmt).toString(), kv.value) }
-                // Concatenate the formatted strings
+            // Concatenate the formatted strings
             .reduce { lhs, rhs -> "${lhs}\n${rhs}" }
 
+        val bigStyle = NotificationCompat.BigTextStyle()
+            .bigText(contentText)
+
         val builder = notificationBuilderTemplate
-            .setContentText(contentText)
+            .setStyle(bigStyle)
+            .setContentText("${contentText.substring(IntRange(0, 13))}...")
         notifyMan.notify(1, builder.build())
     }
 
