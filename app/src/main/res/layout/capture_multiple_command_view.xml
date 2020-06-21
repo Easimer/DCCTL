@@ -22,22 +22,46 @@
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/cfgDelay"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="AUTOFILL_TYPE_NONE"
-                android:hint="@string/cfg_interval"
-                android:inputType="numberDecimal"
-                android:text="@={cmd.interval}" />
-            <EditText
-                android:id="@+id/cfgCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="AUTOFILL_TYPE_NONE"
-                android:hint="@string/cfg_count"
-                android:inputType="number"
-                android:text="@={cmd.count}" />
+                android:layout_height="wrap_content">
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cfg_interval" />
+
+                    <EditText
+                        android:id="@+id/cfgDelay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:autofillHints="AUTOFILL_TYPE_NONE"
+                        android:hint="@string/cfg_interval"
+                        android:inputType="numberDecimal"
+                        android:text="@={cmd.interval}" />
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cfg_count" />
+
+                    <EditText
+                        android:id="@+id/cfgCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:autofillHints="AUTOFILL_TYPE_NONE"
+                        android:hint="@string/cfg_count"
+                        android:inputType="number"
+                        android:text="@={cmd.count}" />
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
 
         <ImageButton
