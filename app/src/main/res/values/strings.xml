@@ -9,7 +9,7 @@
     <string name="btnExecLocal">Exec locally</string>
     <string name="config_mode">Create simple script</string>
     <string name="sensor_debug">Sensor debug</string>
-    <string name="camera_service">Camera service</string>
+    <string name="camera_service">Start camera service</string>
     <string name="scripting_mode">Create complex script</string>
     <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
     <string name="script_new_wait">Add \"Wait\"...</string>
@@ -30,4 +30,6 @@
 
     <string name="title_activity_settings">Preferences</string>
     <string name="title_activity_scripting">Scripting</string>
+    <string name="notification_camera_is_active">Camera is active</string>
+    <string name="terminate_service">Terminate</string>
 </resources>
