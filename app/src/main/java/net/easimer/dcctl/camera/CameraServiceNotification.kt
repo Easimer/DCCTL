@@ -31,7 +31,7 @@ class CameraServiceNotification(private val ctx: Service) {
             )
         }
     private val actTerminate =
-        NotificationCompat.Action.Builder(R.drawable.stop, ctx.getText(R.string.terminate_service), stopIntent)
+        NotificationCompat.Action.Builder(R.mipmap.stop, ctx.getText(R.string.terminate_service), stopIntent)
             .build()
 
     private val notificationBuilderTemplate = makeNotificationBuilder()
