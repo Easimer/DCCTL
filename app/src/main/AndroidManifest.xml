@@ -26,13 +26,6 @@
         </activity>
 
         <activity android:name=".LogActivity" />
-        <activity
-            android:name=".CameraServiceActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
 
         <service
             android:name=".camera.CameraService"
