@@ -27,9 +27,11 @@ class ScriptActivity : AppCompatActivity() {
     private val script = LinkedList<ScriptCommand>()
     private val deleter = CommandDeleter(script) { cmd ->
         val idx = script.indexOfRef(cmd)
-        script.removeAt(idx)
-        viewAdapter.notifyItemRemoved(idx)
-        Log.d("ScriptActivity", "Removed item $idx")
+        if(idx >= 0) {
+            script.removeAt(idx)
+            viewAdapter.notifyItemRemoved(idx)
+            Log.d("ScriptActivity", "Removed item $idx")
+        }
     }
 
     private fun <T> List<T>.indexOfRef(elem : T) : Int {
