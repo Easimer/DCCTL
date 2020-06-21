@@ -1,16 +1,10 @@
 package net.easimer.dcctl.camera
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
-import android.graphics.Camera
-import android.graphics.Color
-import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.IBinder
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import net.easimer.dcctl.*
 import net.easimer.dcctl.protocol.BluetoothServerStatisticsListener
 import net.easimer.dcctl.protocol.IBluetoothServer
@@ -52,7 +46,26 @@ class CameraService : Service() {
                 // Display network stats in the notification
                 btSrv?.addStatisticsListener(object : BluetoothServerStatisticsListener() {
                     override fun onNumberOfScriptsReceivedChanged(numberOfScriptsReceived : Int) {
-                        notification.update(numberOfScriptsReceived)
+                        notification.update(
+                            CameraServiceNotification.NotificationStat(
+                                "btConn",
+                                numberOfScriptsReceived,
+                                R.string.notification_stat_connections
+                            )
+                        )
+                    }
+                })
+
+                // Display camera controller stats in the notification
+                controller?.addStatisticsListener(object : CameraControllerStatisticsListener() {
+                    override fun onNumberOfPicturesTakenChanged(numberOfPicturesTaken: Int) {
+                        notification.update(
+                            CameraServiceNotification.NotificationStat(
+                                "camPicsTaken",
+                                numberOfPicturesTaken,
+                                R.string.notification_stat_pictures_taken
+                            )
+                        )
                     }
                 })
             }

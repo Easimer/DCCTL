@@ -32,5 +32,6 @@
     <string name="title_activity_scripting">Scripting</string>
     <string name="notification_camera_is_active">Camera is active</string>
     <string name="terminate_service">Terminate</string>
-    <string name="notification_camera_is_active_content">Scripts received: %d</string>
+    <string name="notification_stat_connections">Scripts received: %d</string>
+    <string name="notification_stat_pictures_taken">Pictures taken: %d</string>
 </resources>

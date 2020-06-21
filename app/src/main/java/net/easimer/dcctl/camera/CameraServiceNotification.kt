@@ -39,18 +39,28 @@ class CameraServiceNotification(private val ctx: Service) {
         .setSmallIcon(R.drawable.notification)
         .addAction(actTerminate)
         .setOngoing(true)
+    private val stats = HashMap<String, NotificationStat>()
 
     fun create() {
-        val notifyFmt = ctx.getText(R.string.notification_camera_is_active_content).toString()
+        val notifyFmt = ctx.getText(R.string.notification_stat_connections).toString()
         val builder = notificationBuilderTemplate
-            .setContentText(notifyFmt.format(0))
         ctx.startForeground(1, builder.build())
     }
 
-    fun update(scriptsReceived: Int) {
-        val notifyFmt = ctx.getText(R.string.notification_camera_is_active_content).toString()
+    fun update(kv: NotificationStat) {
+        stats.put(kv.key, kv)
+
+        val contentText = stats
+            .map { it.value }
+                // Sort the stat entries by key
+            .sortedBy { it.key }
+                // Map the stat entry to the user readable text
+            .map{ kv -> String.format(ctx.getText(kv.fmt).toString(), kv.value) }
+                // Concatenate the formatted strings
+            .reduce { lhs, rhs -> "${lhs}\n${rhs}" }
+
         val builder = notificationBuilderTemplate
-            .setContentText(notifyFmt.format(scriptsReceived))
+            .setContentText(contentText)
         notifyMan.notify(1, builder.build())
     }
 
@@ -81,4 +91,6 @@ class CameraServiceNotification(private val ctx: Service) {
             notifyMan.createNotificationChannel(channel)
         }
     }
+
+    data class NotificationStat(val key: String, val value: Int, val fmt: Int)
 }

@@ -4,4 +4,7 @@ interface ICameraController {
     fun close()
     fun takePicture()
     fun toggleFlash(enable : Boolean)
+
+    fun addStatisticsListener(listener: CameraControllerStatisticsListener)
+    fun removeStatisticsListener(listener: CameraControllerStatisticsListener)
 }

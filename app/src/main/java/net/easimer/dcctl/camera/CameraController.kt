@@ -9,6 +9,7 @@ import android.widget.Toast
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.savePictureToMediaStorage
+import java.util.*
 
 
 private class CameraController(
@@ -20,6 +21,7 @@ private class CameraController(
     private val handler: Handler
 ) : ICameraController {
     private val TAG = "CameraController"
+    private val stats = CameraControllerStatistics()
 
     init {
         imageReader.setOnImageAvailableListener( {
@@ -101,11 +103,22 @@ private class CameraController(
     }
 
     override fun takePicture() {
+        stats.onPictureTaken()
         createCaptureRequest()
     }
 
     override fun toggleFlash(enable : Boolean) {
         createWarmupCaptureRequest(enable)
+    }
+
+    @Synchronized
+    override fun addStatisticsListener(listener: CameraControllerStatisticsListener) {
+        stats.addStatisticsListener(listener)
+    }
+
+    @Synchronized
+    override fun removeStatisticsListener(listener: CameraControllerStatisticsListener) {
+        stats.removeStatisticsListener(listener)
     }
 }
 
