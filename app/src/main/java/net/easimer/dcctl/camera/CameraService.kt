@@ -11,8 +11,8 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import net.easimer.dcctl.*
-import net.easimer.dcctl.protocol.BluetoothServer2
-import net.easimer.dcctl.protocol.createBluetoothServer2
+import net.easimer.dcctl.protocol.IBluetoothServer
+import net.easimer.dcctl.protocol.createBluetoothServer
 
 class CameraService : Service() {
     private val TAG = "CameraService"
@@ -20,7 +20,7 @@ class CameraService : Service() {
 
     private lateinit var handler : Handler
 
-    private var btSrv :BluetoothServer2? = null
+    private var btSrv : IBluetoothServer? = null
     private var controller: ICameraController? = null
     private lateinit var executor: ScriptExecutor
 
@@ -37,7 +37,7 @@ class CameraService : Service() {
             tryCreatingController(this, handler) {
                 controller = it
                 executor = ScriptExecutor(this, it)
-                btSrv = createBluetoothServer2(this, executor)
+                btSrv = createBluetoothServer(this, executor)
             }
         }
 

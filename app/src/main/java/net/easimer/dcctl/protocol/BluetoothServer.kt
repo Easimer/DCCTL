@@ -10,7 +10,7 @@ import net.easimer.dcctl.scripting.ScriptDeserializer
 import java.util.*
 import kotlin.concurrent.thread
 
-class BluetoothServer2(private val socket: BluetoothServerSocket, private val cmdSink: ICommandSink) {
+private class BluetoothServer(private val socket: BluetoothServerSocket, private val cmdSink: ICommandSink) : IBluetoothServer {
     private val TAG = "BTSrv2"
 
     val serverThread = thread {
@@ -43,7 +43,7 @@ class BluetoothServer2(private val socket: BluetoothServerSocket, private val cm
         Log.d(TAG, "Server loop finished")
     }
 
-    fun shutdown() {
+    override fun shutdown() {
         Log.d(TAG, "closing socket")
         socket.close()
         Log.d(TAG, "joining thread")
@@ -52,7 +52,7 @@ class BluetoothServer2(private val socket: BluetoothServerSocket, private val cm
     }
 }
 
-fun createBluetoothServer2(ctx: Context, cmdSink: ICommandSink): BluetoothServer2? {
+fun createBluetoothServer(ctx: Context, cmdSink: ICommandSink): IBluetoothServer? {
     try {
         val btAdapter = BluetoothAdapter.getDefaultAdapter()
         if (btAdapter != null) {
@@ -60,7 +60,7 @@ fun createBluetoothServer2(ctx: Context, cmdSink: ICommandSink): BluetoothServer
                 "net.easimer.dcctl",
                 UUID.fromString(BLUETOOTH_PROTOCOL_ID)
             )
-            return BluetoothServer2(socket, cmdSink)
+            return BluetoothServer(socket, cmdSink)
         }
     } catch (e: Exception) {
         Toast.makeText(ctx, "Couldn't start Bluetooth server: " + e.localizedMessage, Toast.LENGTH_LONG).show()
