@@ -12,10 +12,13 @@ import kotlin.concurrent.thread
 
 private class BluetoothServer(private val socket: BluetoothServerSocket, private val cmdSink: ICommandSink) : IBluetoothServer {
     private val TAG = "BTSrv2"
+    private val statListeners = LinkedList<BluetoothServerStatisticsListener>()
 
     val serverThread = thread {
         var finish = false
+        var scriptsReceived = 0
         Log.d(TAG, "Listening on Bluetooth")
+
         while(!finish) {
             try {
                 val csocket = socket.accept()
@@ -25,6 +28,10 @@ private class BluetoothServer(private val socket: BluetoothServerSocket, private
                         val ser = ScriptDeserializer(csocket.inputStream)
                         val script = ser.deserialize()
                         if(script != null) {
+                            // Notify listeners about this script we received
+                            scriptsReceived++
+                            statListeners.forEach { it.onNumberOfScriptsReceivedChanged(scriptsReceived) }
+
                             cmdSink.execute(script)
                         }
                         ser.close()
@@ -49,6 +56,16 @@ private class BluetoothServer(private val socket: BluetoothServerSocket, private
         Log.d(TAG, "joining thread")
         serverThread.join()
         Log.d(TAG, "joined thread")
+    }
+
+    @Synchronized
+    override fun addStatisticsListener(listener: BluetoothServerStatisticsListener) {
+        statListeners.add(listener)
+    }
+
+    @Synchronized
+    override fun removeStatisticsListener(listener: BluetoothServerStatisticsListener) {
+        statListeners.remove(listener)
     }
 }
 
