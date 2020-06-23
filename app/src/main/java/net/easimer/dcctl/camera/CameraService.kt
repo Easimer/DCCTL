@@ -38,9 +38,15 @@ class CameraService : Service() {
         handler.post {
             Log.d(TAG, "StartCommand on thread")
             tryCreatingController(this, handler) {
-                controller = it
                 val sfx = AudioNotifications(this)
-                executor = ScriptExecutor(sfx, it)
+                val sleep = object : IThreadSleep {
+                    override fun sleep(secs: Float) {
+                        Thread.sleep((secs * 1000).toLong())
+                    }
+                }
+
+                controller = it
+                executor = ScriptExecutor(sfx, it, sleep, Log)
                 btSrv = createBluetoothServer(this, executor)
                 notification.create()
 
