@@ -6,7 +6,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import net.easimer.dcctl.scripting.SoundEffect
 
-class AudioNotifications(ctx: Context) {
+class AudioNotifications(ctx: Context) : IAudioNotifications {
     // Contact the audio manager service
     private val audioManager = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private val sessionId = audioManager.generateAudioSessionId()
@@ -25,15 +25,15 @@ class AudioNotifications(ctx: Context) {
     private val sfxKlaxon = MediaPlayer.create(ctx, R.raw.klaxon001, audioAttr, sessionId)
     private val sfxCombat = MediaPlayer.create(ctx, R.raw.ede001, audioAttr, sessionId)
 
-    fun onCommandReceived() {
+    override fun onCommandReceived() {
         playEffect(SoundEffect.Chirp)
     }
 
-    fun onPictureTaken() {
+    override fun onPictureTaken() {
         playEffect(SoundEffect.Blip)
     }
 
-    fun playEffect(id : SoundEffect) {
+    override fun playEffect(id : SoundEffect) {
         val sfx = when(id) {
             SoundEffect.Chirp -> sfxReceived
             SoundEffect.Blip -> sfxTaken

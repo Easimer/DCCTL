@@ -1,12 +1,12 @@
 package net.easimer.dcctl.camera
 
-import net.easimer.dcctl.AudioNotifications
+import net.easimer.dcctl.IAudioNotifications
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.protocol.ICommandSink
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand
 
-class ScriptExecutor(private val sfx : AudioNotifications, private val camera : ICameraController) : ICommandSink {
+class ScriptExecutor(private val sfx : IAudioNotifications, private val camera : ICameraController) : ICommandSink {
     private val TAG = "ScriptExecutor"
 
     override fun execute(script: Script) {
