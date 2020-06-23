@@ -56,7 +56,7 @@ private class CameraController(
         }
     }
 
-    private fun createCaptureRequest() {
+    private fun createCaptureRequest(doFlash : Boolean) {
         try {
             val builder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
             builder.addTarget(imageReader.surface)
@@ -64,6 +64,11 @@ private class CameraController(
             builder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
 
             builder.set(CaptureRequest.JPEG_ORIENTATION, 0)
+
+            builder.set(CaptureRequest.FLASH_MODE,
+                if (doFlash) CaptureRequest.FLASH_MODE_SINGLE
+                else CaptureRequest.FLASH_MODE_OFF
+            )
 
             captureSession.capture(builder.build(), captureCallback, handler)
 
@@ -102,9 +107,9 @@ private class CameraController(
         warmupImageReader.close()
     }
 
-    override fun takePicture() {
+    override fun takePicture(doFlash: Boolean) {
         stats.onPictureTaken()
-        createCaptureRequest()
+        createCaptureRequest(doFlash)
     }
 
     override fun toggleFlash(enable : Boolean) {

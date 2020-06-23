@@ -38,7 +38,8 @@ class ScriptExecutor(
 
         repeat(cmd.count) {
             sfx.onPictureTaken()
-            camera.takePicture()
+            // TODO(easimer): flash
+            camera.takePicture(false)
             sleep.sleep(cmd.interval)
         }
     }
