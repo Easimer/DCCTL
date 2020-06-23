@@ -17,7 +17,6 @@ class ScriptDeserializer(private val stream : InputStream) {
             val deserializer = Script.serializer()
 
             val json = String(buf, Charsets.UTF_8)
-            Log.d("ScriptDeser", "Script: $json")
             val j = Json.parseJson(json)
             return Json.Default.fromJson(deserializer, j)
         } else {
