@@ -39,7 +39,8 @@ class CameraService : Service() {
             Log.d(TAG, "StartCommand on thread")
             tryCreatingController(this, handler) {
                 controller = it
-                executor = ScriptExecutor(this, it)
+                val sfx = AudioNotifications(this)
+                executor = ScriptExecutor(sfx, it)
                 btSrv = createBluetoothServer(this, executor)
                 notification.create()
 

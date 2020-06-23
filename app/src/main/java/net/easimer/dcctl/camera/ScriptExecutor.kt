@@ -1,15 +1,13 @@
 package net.easimer.dcctl.camera
 
-import android.content.Context
 import net.easimer.dcctl.AudioNotifications
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.protocol.ICommandSink
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand
 
-class ScriptExecutor(private val ctx : Context, private val camera : ICameraController) : ICommandSink {
+class ScriptExecutor(private val sfx : AudioNotifications, private val camera : ICameraController) : ICommandSink {
     private val TAG = "ScriptExecutor"
-    private val sfx = AudioNotifications(ctx)
 
     override fun execute(script: Script) {
         sfx.onCommandReceived()
