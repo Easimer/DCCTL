@@ -7,7 +7,8 @@ import androidx.databinding.InverseBindingAdapter
 class ConfigViewModel(
     var delay: Float,
     var interval: Float,
-    var count: Int
+    var count: Int,
+    var flash: Boolean
 )
 
 // Binding helpers

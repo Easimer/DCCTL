@@ -7,7 +7,11 @@ sealed class ScriptCommand {
     @Serializable
     data class Wait(var time: Float) : ScriptCommand()
     @Serializable
-    data class CaptureMultiple(var interval: Float, var count: Int) : ScriptCommand()
+    data class CaptureMultiple(
+        var interval: Float,
+        var count: Int,
+        var flash: Boolean
+    ) : ScriptCommand()
     @Serializable
     data class AudioSignal(var id : SoundEffect) : ScriptCommand()
     @Serializable

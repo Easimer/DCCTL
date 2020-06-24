@@ -16,7 +16,7 @@ class ConfigActivity : AppCompatActivity() {
         val EXTRA_RECV_KIND = "RecvKind"
     }
 
-    val vm = ConfigViewModel(10.0f, 1.0f, 0)
+    val vm = ConfigViewModel(10.0f, 1.0f, 0, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class ConfigActivity : AppCompatActivity() {
 
     fun onPushRemoteClick(view: View) {
         val cmdWait = ScriptCommand.Wait(vm.delay)
-        val cmdCapture = ScriptCommand.CaptureMultiple(vm.interval, vm.count)
+        val cmdCapture = ScriptCommand.CaptureMultiple(vm.interval, vm.count, vm.flash)
         val script = Script(listOf(cmdWait, cmdCapture))
         val excludedDevicesDefault = HashSet<String>()
 

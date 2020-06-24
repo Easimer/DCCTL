@@ -35,7 +35,7 @@ class ScriptExecutorTests {
     fun testCaptureMultiple() {
         val (exec, sfx, ctl, sleep, logger) = createExecutor()
 
-        val cmd = ScriptCommand.CaptureMultiple(1.0f, 3)
+        val cmd = ScriptCommand.CaptureMultiple(1.0f, 3, false)
         val script = Script(listOf(cmd))
 
         exec.execute(script)

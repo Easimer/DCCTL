@@ -62,7 +62,8 @@ class ScriptActivity : AppCompatActivity() {
             R.id.new_capture_multiple ->
                 ScriptCommand.CaptureMultiple(
                     1.0f,
-                    3
+                    3,
+                    false
                 )
             R.id.new_audio_signal ->
                 ScriptCommand.AudioSignal(

@@ -71,7 +71,7 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
         private val binding =
             CaptureMultipleCommandViewBinding.inflate(inflater)
 
-        override var cmd = ScriptCommand.CaptureMultiple(0.0f, 0)
+        override var cmd = ScriptCommand.CaptureMultiple(0.0f, 0, false)
 
         override fun bindTo(cmd: ScriptCommand) {
             if(cmd is ScriptCommand.CaptureMultiple) {

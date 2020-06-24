@@ -69,7 +69,7 @@ class ProtocolTests {
 
         val ret = Script(listOf(
             ScriptCommand.Wait(5.0f),
-            ScriptCommand.CaptureMultiple(1.0f, 3),
+            ScriptCommand.CaptureMultiple(1.0f, 3, false),
             ScriptCommand.AudioSignal(SoundEffect.Blip),
             ScriptCommand.Blink(0.75f)
         ))

@@ -35,4 +35,5 @@
     <string name="notification_stat_connections">Scripts received: %d</string>
     <string name="notification_stat_pictures_taken">Pictures taken: %d</string>
     <string name="notification_stat_times_blinked">Blinked %d times</string>
+    <string name="cfg_flash">Flash</string>
 </resources>
