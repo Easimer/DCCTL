@@ -2,6 +2,7 @@ package net.easimer.dcctl
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.CheckBoxPreference
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
@@ -30,21 +31,28 @@ class SettingsActivity : AppCompatActivity() {
             categoryNet.key = "networking"
             screen.addPreference(categoryNet)
 
-            val preferenceBroadcast = MultiSelectListPreference(context)
-            preferenceBroadcast.title = getString(R.string.pref_excluded_devices)
-            preferenceBroadcast.key = "excluded_devices"
+            MultiSelectListPreference(context).run {
+                title = getString(R.string.pref_excluded_devices)
+                key = "excluded_devices"
 
-            val entries = LinkedList<String>()
-            val entryValues = LinkedList<String>()
-            forEachPairedBluetoothDevice { name, id ->
-                entries.add(name)
-                entryValues.add(id)
+                val entryList = LinkedList<String>()
+                val entryValueList = LinkedList<String>()
+                forEachPairedBluetoothDevice { name, id ->
+                    entryList.add(name)
+                    entryValueList.add(id)
+                }
+
+                entries = entryList.toTypedArray()
+                entryValues = entryValueList.toTypedArray()
+
+                categoryNet.addPreference(this)
             }
 
-            preferenceBroadcast.entries = entries.toTypedArray()
-            preferenceBroadcast.entryValues = entryValues.toTypedArray()
-
-            categoryNet.addPreference(preferenceBroadcast)
+            CheckBoxPreference(context).run {
+                title = getString(R.string.pref_tcp_server)
+                key = "tcp_server_enabled"
+                categoryNet.addPreference(this)
+            }
 
             preferenceScreen = screen
         }

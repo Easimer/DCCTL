@@ -5,9 +5,9 @@ import android.os.Handler
 import android.os.HandlerThread
 import androidx.lifecycle.LifecycleService
 import net.easimer.dcctl.*
-import net.easimer.dcctl.protocol.BluetoothServerStatisticsListener
-import net.easimer.dcctl.protocol.IBluetoothServer
-import net.easimer.dcctl.protocol.createBluetoothServer
+import net.easimer.dcctl.protocol.*
+import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
 
 class CameraService : LifecycleService() {
     private val TAG = "CameraService"
@@ -15,7 +15,9 @@ class CameraService : LifecycleService() {
 
     private lateinit var handler : Handler
 
-    private var btSrv : IBluetoothServer? = null
+    private val totalScriptsReceived = AtomicInteger(0)
+
+    private val servers : MutableList<ICommandServer> = LinkedList<ICommandServer>()
     private var controller: ICameraController? = null
     private lateinit var executor: ScriptExecutor
     private lateinit var notification : CameraServiceNotification
@@ -28,6 +30,8 @@ class CameraService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
+
+        val cfg = Configuration(this)
 
         thread.start()
         handler = Handler(thread.looper)
@@ -44,19 +48,18 @@ class CameraService : LifecycleService() {
 
                 controller = it
                 executor = ScriptExecutor(sfx, it, sleep, Log, handler)
-                btSrv = createBluetoothServer(this, executor)
-                notification.create()
 
-                // Display network stats in the notification
-                btSrv?.let {
-                    it.onScriptReceived += { numberOfScriptsReceived ->
-                        notification.update(
-                            "btConn",
-                            numberOfScriptsReceived,
-                            R.string.notification_stat_connections
-                        )
-                    }
+                // Create the Bluetooth server
+                val btSrvSock = createServerSocket(this, SERVER_KIND_BLUETOOTH)
+                createServer(btSrvSock, executor)
+
+                // Create the TCP server
+                if(cfg.tcpServerEnabled) {
+                    val tcpSrvSock = createServerSocket(this, SERVER_KIND_TCP)
+                    createServer(tcpSrvSock, executor)
                 }
+
+                notification.create()
 
                 // Display camera controller stats in the notification
                 controller?.let {
@@ -89,7 +92,11 @@ class CameraService : LifecycleService() {
         Log.d(TAG, "onDestroy on UI")
         handler.post {
             Log.d(TAG, "onDestroy on thread")
-            btSrv?.shutdown()
+
+            servers.forEach {
+                it.shutdown()
+            }
+
             controller?.close()
             Log.d(TAG, "onDestroy on thread finished")
         }
@@ -98,5 +105,20 @@ class CameraService : LifecycleService() {
         Log.d(TAG, "onDestroy: thread quit")
         thread.join()
         Log.d(TAG, "onDestroy: thread joined")
+    }
+
+    private fun createServer(sock : IServerSocket?, executor: ScriptExecutor) {
+        sock?.let {
+            val srv = CommandServer(sock, executor)
+            servers.add(srv)
+
+            srv.onScriptReceived += {
+                notification.update(
+                    "btConn",
+                    totalScriptsReceived.incrementAndGet(),
+                    R.string.notification_stat_connections
+                )
+            }
+        }
     }
 }
