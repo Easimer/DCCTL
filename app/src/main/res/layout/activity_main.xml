@@ -6,9 +6,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
     <Button
+        android:id="@+id/btnStartService"
         android:layout_height="wrap_content" android:layout_width="match_parent"
-        android:onClick="onClickCameraService"
-        android:text="@string/camera_service"
+        android:text="@string/start_camera_service"
         />
     <Button
         android:layout_height="wrap_content" android:layout_width="match_parent"

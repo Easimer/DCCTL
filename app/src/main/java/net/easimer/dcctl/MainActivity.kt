@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import net.easimer.dcctl.scripting.ui.ScriptActivity
@@ -38,6 +39,30 @@ class MainActivity : AppCompatActivity() {
         intent?.let {
             handleExtras(intent)
         }
+
+        CameraServiceManager.addServiceEventListener(
+            object : CameraServiceManager.IServiceManagementEventListener {
+                private val activity = this@MainActivity
+
+                override fun onServiceStarted() {
+                    val svcBtn = findViewById<Button>(R.id.btnStartService)
+                    svcBtn.isClickable = false
+                    svcBtn.text = getText(R.string.stop_camera_service)
+                    svcBtn.setOnClickListener {
+                        CameraServiceManager.stopIfRunning(activity)
+                    }
+                }
+
+                override fun onServiceStopped() {
+                    val svcBtn = findViewById<Button>(R.id.btnStartService)
+                    svcBtn.isClickable = true
+                    svcBtn.text = getText(R.string.start_camera_service)
+                    svcBtn.setOnClickListener {
+                        CameraServiceManager.startIfDoesntExist(activity)
+                    }
+                }
+            }, true
+        )
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -50,11 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickConfigMode(view: View) {
         startIntentOfType<ConfigActivity>()
-    }
-
-    fun onClickCameraService(view: View) {
-        // startIntentOfType<CameraServiceActivity>()
-        CameraServiceManager.startIfDoesntExist(this)
     }
 
     fun onClickScriptingMode(view: View) {
