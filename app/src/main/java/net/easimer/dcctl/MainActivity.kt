@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity() {
         startIntentOfType<ConfigActivity>()
     }
 
-    fun onClickSensorDebug(view: View) {
-        startIntentOfType<SensorDebug>()
-    }
-
     fun onClickCameraService(view: View) {
         // startIntentOfType<CameraServiceActivity>()
         CameraServiceManager.startIfDoesntExist(this)

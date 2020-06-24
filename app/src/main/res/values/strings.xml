@@ -8,7 +8,6 @@
     <string name="btnPushRemote">Push to remote</string>
     <string name="btnExecLocal">Exec locally</string>
     <string name="config_mode">Create simple script</string>
-    <string name="sensor_debug">Sensor debug</string>
     <string name="camera_service">Start camera service</string>
     <string name="scripting_mode">Create complex script</string>
     <string name="script_new_capture_multiple">Add \"Capture multiple\"...</string>
