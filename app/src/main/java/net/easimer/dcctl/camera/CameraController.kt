@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.savePictureToMediaStorage
+import net.easimer.dcctl.utils.Event
 
 
 private class CameraController(
@@ -36,7 +37,7 @@ private class CameraController(
                     val byteBuf = ByteArray(buf.remaining())
                     buf.get(byteBuf)
 
-                    stats.onPictureTaken()
+                    stats.pictureTaken()
                     savePictureToMediaStorage(ctx, byteBuf)
                     image.close()
                 }
@@ -52,19 +53,14 @@ private class CameraController(
         camera.cameraControl.enableTorch(enable)
 
         if(enable) {
-            stats.onBlinked()
+            stats.blinked()
         }
     }
 
-    @Synchronized
-    override fun addStatisticsListener(listener: CameraControllerStatisticsListener) {
-        stats.addStatisticsListener(listener)
-    }
-
-    @Synchronized
-    override fun removeStatisticsListener(listener: CameraControllerStatisticsListener) {
-        stats.removeStatisticsListener(listener)
-    }
+    override val onPictureTaken: Event<Int>
+        get() = stats.onPictureTaken
+    override val onBlinked: Event<Int>
+        get() = stats.onBlinked
 }
 
 fun tryCreatingController(ctx: Context, callback: (controller: ICameraController) -> Unit) {

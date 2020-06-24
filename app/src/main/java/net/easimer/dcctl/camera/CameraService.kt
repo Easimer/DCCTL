@@ -48,34 +48,33 @@ class CameraService : LifecycleService() {
                 notification.create()
 
                 // Display network stats in the notification
-                btSrv?.addStatisticsListener(object : BluetoothServerStatisticsListener() {
-                    override fun onNumberOfScriptsReceivedChanged(numberOfScriptsReceived : Int) {
+                btSrv?.let {
+                    it.onScriptReceived += { numberOfScriptsReceived ->
                         notification.update(
                             "btConn",
                             numberOfScriptsReceived,
                             R.string.notification_stat_connections
                         )
                     }
-                })
+                }
 
                 // Display camera controller stats in the notification
-                controller?.addStatisticsListener(object : CameraControllerStatisticsListener() {
-                    override fun onNumberOfPicturesTakenChanged(numberOfPicturesTaken: Int) {
+                controller?.let {
+                    it.onPictureTaken += { numberOfPicturesTaken ->
                         notification.update(
                             "camPicsTaken",
                             numberOfPicturesTaken,
                             R.string.notification_stat_pictures_taken
                         )
                     }
-
-                    override fun onNumberOfTimesBlinkedChanged(numberOfTimesBlinked: Int) {
+                    it.onBlinked += { numberOfTimesBlinked ->
                         notification.update(
                             "camTimesBlinked",
                             numberOfTimesBlinked,
                             R.string.notification_stat_times_blinked
                         )
                     }
-                })
+                }
             }
         }
 

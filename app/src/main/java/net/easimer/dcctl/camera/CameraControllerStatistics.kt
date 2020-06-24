@@ -1,35 +1,21 @@
 package net.easimer.dcctl.camera
 
+import net.easimer.dcctl.utils.Event
 import java.util.*
 
 class CameraControllerStatistics {
-    private val statListeners = LinkedList<CameraControllerStatisticsListener>()
     private var numberOfPicturesTaken = 0
     private var numberOfTimesBlinked = 0
+    val onPictureTaken = Event<Int>()
+    val onBlinked = Event<Int>()
 
-    @Synchronized
-    fun addStatisticsListener(listener: CameraControllerStatisticsListener) {
-        statListeners.add(listener)
-    }
-
-    @Synchronized
-    fun removeStatisticsListener(listener: CameraControllerStatisticsListener) {
-        statListeners.remove(listener)
-    }
-
-    fun onPictureTaken() {
+    fun pictureTaken() {
         numberOfPicturesTaken++
-
-        statListeners.forEach {
-            it.onNumberOfPicturesTakenChanged(numberOfPicturesTaken)
-        }
+        onPictureTaken(numberOfPicturesTaken)
     }
 
-    fun onBlinked() {
+    fun blinked() {
         numberOfTimesBlinked++
-
-        statListeners.forEach {
-            it.onNumberOfTimesBlinkedChanged(numberOfTimesBlinked)
-        }
+        onBlinked(numberOfTimesBlinked)
     }
 }

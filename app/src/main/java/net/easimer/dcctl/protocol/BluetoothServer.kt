@@ -7,12 +7,13 @@ import net.easimer.dcctl.Log
 import android.widget.Toast
 import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.scripting.ScriptDeserializer
+import net.easimer.dcctl.utils.Event
 import java.util.*
 import kotlin.concurrent.thread
 
 private class BluetoothServer(private val socket: BluetoothServerSocket, private val cmdSink: ICommandSink) : IBluetoothServer {
     private val TAG = "BTSrv2"
-    private val statListeners = LinkedList<BluetoothServerStatisticsListener>()
+    override val onScriptReceived = Event<Int>()
 
     val serverThread = thread {
         var finish = false
@@ -30,7 +31,7 @@ private class BluetoothServer(private val socket: BluetoothServerSocket, private
                         if(script != null) {
                             // Notify listeners about this script we received
                             scriptsReceived++
-                            statListeners.forEach { it.onNumberOfScriptsReceivedChanged(scriptsReceived) }
+                            onScriptReceived(scriptsReceived)
 
                             cmdSink.execute(script)
                         }
@@ -56,16 +57,6 @@ private class BluetoothServer(private val socket: BluetoothServerSocket, private
         Log.d(TAG, "joining thread")
         serverThread.join()
         Log.d(TAG, "joined thread")
-    }
-
-    @Synchronized
-    override fun addStatisticsListener(listener: BluetoothServerStatisticsListener) {
-        statListeners.add(listener)
-    }
-
-    @Synchronized
-    override fun removeStatisticsListener(listener: BluetoothServerStatisticsListener) {
-        statListeners.remove(listener)
     }
 }
 
