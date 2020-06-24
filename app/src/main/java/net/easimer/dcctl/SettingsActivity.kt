@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import net.easimer.dcctl.protocol.forEachPairedBluetoothDevice
 import java.util.*
 

@@ -2,7 +2,6 @@ package net.easimer.dcctl.camera
 
 import net.easimer.dcctl.IAudioNotifications
 import net.easimer.dcctl.ILogger
-import net.easimer.dcctl.Log
 import net.easimer.dcctl.protocol.ICommandSink
 import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand

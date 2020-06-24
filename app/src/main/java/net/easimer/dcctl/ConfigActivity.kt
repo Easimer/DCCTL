@@ -12,10 +12,6 @@ import net.easimer.dcctl.scripting.Script
 import net.easimer.dcctl.scripting.ScriptCommand
 
 class ConfigActivity : AppCompatActivity() {
-    companion object {
-        val EXTRA_RECV_KIND = "RecvKind"
-    }
-
     val vm = ConfigViewModel(10.0f, 1.0f, 0, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {

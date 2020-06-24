@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import net.easimer.dcctl.Log
+import androidx.annotation.RequiresApi
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -71,6 +71,7 @@ private fun savePictureToMediaStorageLegacy(data: ByteArray) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
     val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss.SSS").format(Date())
     val relativeLocation = Environment.DIRECTORY_PICTURES + "/DCCTL"
@@ -83,8 +84,8 @@ private fun savePictureToMediaStorageQ(ctx: Context, data: ByteArray) {
     val resolver: ContentResolver = ctx.getContentResolver()
 
     try {
-        var contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        var uri = resolver.insert(contentUri, contentValues)
+        val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val uri = resolver.insert(contentUri, contentValues)
 
         if (uri != null)
         {

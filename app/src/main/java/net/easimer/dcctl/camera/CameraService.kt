@@ -1,10 +1,8 @@
 package net.easimer.dcctl.camera
 
-import android.app.*
 import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.IBinder
 import androidx.lifecycle.LifecycleService
 import net.easimer.dcctl.*
 import net.easimer.dcctl.protocol.BluetoothServerStatisticsListener

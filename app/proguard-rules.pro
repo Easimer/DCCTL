@@ -23,9 +23,9 @@
 -keepattributes *Annotation*, InnerClasses
 -dontnote kotlinx.serialization.SerializationKt
 -keep,includedescriptorclasses class com.yourcompany.yourpackage.**$$serializer { *; } # <-- change package name to your app's
--keepclassmembers class net.easimer.dcctl.** { # <-- change package name to your app's
+-keepclassmembers class net.easimer.dcctl.* { # <-- change package name to your app's
     *** Companion;
 }
--keepclasseswithmembers class net.easimer.dcctl.** { # <-- change package name to your app's
+-keepclasseswithmembers class net.easimer.dcctl.* { # <-- change package name to your app's
     kotlinx.serialization.KSerializer serializer(...);
 }

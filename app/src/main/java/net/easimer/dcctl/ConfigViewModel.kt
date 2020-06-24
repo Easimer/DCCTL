@@ -36,7 +36,6 @@ fun getFloat(view: TextView): Float {
     }
 }
 
-
 @BindingAdapter("android:text")
 fun setInt(view: TextView, value: Int) {
     view.setText(value.toString())
