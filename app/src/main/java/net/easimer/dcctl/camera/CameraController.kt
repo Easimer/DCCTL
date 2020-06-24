@@ -67,7 +67,7 @@ private class CameraController(
     }
 }
 
-fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller: ICameraController) -> Unit) {
+fun tryCreatingController(ctx: Context, callback: (controller: ICameraController) -> Unit) {
     val TAG = "tryCreatingController"
 
     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
