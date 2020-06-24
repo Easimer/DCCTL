@@ -16,13 +16,13 @@ class ProtocolTests {
         val emptyScript = Script(emptyList())
 
         val baos = ByteArrayOutputStream()
-        val ser = ScriptSerializer(baos)
+        val ser = Serializer(baos)
         ser.serialize(emptyScript)
         ser.close()
         val buf = baos.toByteArray()
 
         val bais = ByteArrayInputStream(buf)
-        val deser = ScriptDeserializer(bais)
+        val deser = Deserializer(bais)
         val script = deser.deserialize()
         deser.close()
         assertNotNull(script)
@@ -36,7 +36,7 @@ class ProtocolTests {
         val S = createScript()
 
         val baos = ByteArrayOutputStream()
-        val ser = ScriptSerializer(baos)
+        val ser = Serializer(baos)
         ser.serialize(S)
         ser.close()
     }
@@ -46,13 +46,13 @@ class ProtocolTests {
         val S = createScript()
 
         val baos = ByteArrayOutputStream()
-        val ser = ScriptSerializer(baos)
+        val ser = Serializer(baos)
         ser.serialize(S)
         ser.close()
         val buf = baos.toByteArray()
 
         val bais = ByteArrayInputStream(buf)
-        val deser = ScriptDeserializer(bais)
+        val deser = Deserializer(bais)
         val script = deser.deserialize()
         deser.close()
         assertNotNull(script)
@@ -65,13 +65,13 @@ class ProtocolTests {
      * Create a Script that contains all kinds of commands
      */
     private fun createScript(): Script {
-        val subclasses = ScriptCommand::class.sealedSubclasses.toMutableSet()
+        val subclasses = Command::class.sealedSubclasses.toMutableSet()
 
         val ret = Script(listOf(
-            ScriptCommand.Wait(5.0f),
-            ScriptCommand.CaptureMultiple(1.0f, 3, false),
-            ScriptCommand.AudioSignal(SoundEffect.Blip),
-            ScriptCommand.Blink(0.75f)
+            Command.Wait(5.0f),
+            Command.CaptureMultiple(1.0f, 3, false),
+            Command.AudioSignal(SoundEffect.Blip),
+            Command.Blink(0.75f)
         ))
 
         // Make sure there is an item for every subclass of ScriptCommand

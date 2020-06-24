@@ -9,7 +9,7 @@ import androidx.preference.PreferenceManager
 import net.easimer.dcctl.databinding.ActivityConfigBinding
 import net.easimer.dcctl.protocol.broadcastScript
 import net.easimer.dcctl.scripting.Script
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 
 class ConfigActivity : AppCompatActivity() {
     val vm = ConfigViewModel(10.0f, 1.0f, 0, false)
@@ -21,8 +21,8 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     fun onPushRemoteClick(view: View) {
-        val cmdWait = ScriptCommand.Wait(vm.delay)
-        val cmdCapture = ScriptCommand.CaptureMultiple(vm.interval, vm.count, vm.flash)
+        val cmdWait = Command.Wait(vm.delay)
+        val cmdCapture = Command.CaptureMultiple(vm.interval, vm.count, vm.flash)
         val script = Script(listOf(cmdWait, cmdCapture))
         val excludedDevicesDefault = HashSet<String>()
 

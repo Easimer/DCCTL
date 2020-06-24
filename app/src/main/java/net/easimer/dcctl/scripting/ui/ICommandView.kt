@@ -1,7 +1,7 @@
 package net.easimer.dcctl.scripting.ui
 
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 
 interface ICommandView {
-    fun bindTo(cmd: ScriptCommand)
+    fun bindTo(cmd: Command)
 }

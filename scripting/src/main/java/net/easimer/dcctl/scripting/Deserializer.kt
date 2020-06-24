@@ -4,7 +4,7 @@ import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import java.io.*
 
-class ScriptDeserializer(private val stream : InputStream) {
+class Deserializer(private val stream : InputStream) {
     @UnstableDefault
     fun deserialize(): Script? {
         val dis = DataInputStream(stream)

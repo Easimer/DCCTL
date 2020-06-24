@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothDevice
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.LogLevel
 import net.easimer.dcctl.scripting.Script
-import net.easimer.dcctl.scripting.ScriptSerializer
+import net.easimer.dcctl.scripting.Serializer
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -21,7 +21,7 @@ private fun sendConfigurationTo(dev: BluetoothDevice, script: Script, callback: 
                     Log.d(TAG, "Socket connected")
                     if (s.outputStream != null) {
                         Log.d(TAG, "Found server " + dev.name)
-                        val ser = ScriptSerializer(s.outputStream)
+                        val ser = Serializer(s.outputStream)
                         ser.serialize(script)
                         ser.close()
                         Log.d(TAG, "Sent packet")

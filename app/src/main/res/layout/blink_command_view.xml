@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cmd"
-            type="net.easimer.dcctl.scripting.ScriptCommand.Blink" />
+            type="net.easimer.dcctl.scripting.Command.Blink" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

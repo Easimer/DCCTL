@@ -2,7 +2,7 @@ package net.easimer.dcctl.protocol
 
 import net.easimer.dcctl.Log
 import net.easimer.dcctl.LogLevel
-import net.easimer.dcctl.scripting.ScriptDeserializer
+import net.easimer.dcctl.scripting.Deserializer
 import net.easimer.dcctl.utils.Event
 import kotlin.concurrent.thread
 
@@ -29,7 +29,7 @@ class CommandServer(
                 if (csocket != null) {
                     Log.d(TAG, "New client")
                     try {
-                        val ser = ScriptDeserializer(csocket.inputStream)
+                        val ser = Deserializer(csocket.inputStream)
                         val script = ser.deserialize()
                         if(script != null) {
                             // Notify listeners about this script we received

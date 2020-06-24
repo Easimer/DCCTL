@@ -4,7 +4,7 @@ import kotlinx.serialization.json.Json
 import java.io.DataOutputStream
 import java.io.OutputStream
 
-class ScriptSerializer(private val stream : OutputStream) {
+class Serializer(private val stream : OutputStream) {
     fun serialize(script: Script) {
         val dos = DataOutputStream(stream)
 

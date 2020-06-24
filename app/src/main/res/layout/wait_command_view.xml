@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cmd"
-            type="net.easimer.dcctl.scripting.ScriptCommand.Wait" />
+            type="net.easimer.dcctl.scripting.Command.Wait" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

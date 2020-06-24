@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 
 /**
  * List adapter for RecyclerView.
  */
-class CommandAdapter(private val ctx : Context, private val deleter : CommandDeleter) : ListAdapter<ScriptCommand, RecyclerView.ViewHolder>(
+class CommandAdapter(private val ctx : Context, private val deleter : CommandDeleter) : ListAdapter<Command, RecyclerView.ViewHolder>(
     CommandDiffCallback()
 ) {
     private fun setLayout(cv : LinearLayout) {
@@ -55,10 +55,10 @@ class CommandAdapter(private val ctx : Context, private val deleter : CommandDel
 
     override fun getItemViewType(position: Int): Int {
         return when(getItem(position)) {
-            is ScriptCommand.Wait -> CMD_WAIT
-            is ScriptCommand.CaptureMultiple -> CMD_CAPTURE_MULTIPLE
-            is ScriptCommand.AudioSignal -> CMD_AUDIO_SIGNAL
-            is ScriptCommand.Blink -> CMD_BLINK
+            is Command.Wait -> CMD_WAIT
+            is Command.CaptureMultiple -> CMD_CAPTURE_MULTIPLE
+            is Command.AudioSignal -> CMD_AUDIO_SIGNAL
+            is Command.Blink -> CMD_BLINK
         }
     }
 

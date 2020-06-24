@@ -8,7 +8,7 @@ import net.easimer.dcctl.camera.ICameraController
 import net.easimer.dcctl.camera.IThreadSleep
 import net.easimer.dcctl.camera.ScriptExecutor
 import net.easimer.dcctl.scripting.Script
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 import net.easimer.dcctl.scripting.SoundEffect
 import org.junit.Test
 
@@ -20,7 +20,7 @@ class ScriptExecutorTests {
     fun waitTest() {
         val (exec, sfx, ctl, sleep, logger) = createExecutor()
 
-        val cmd = ScriptCommand.Wait(5.0f)
+        val cmd = Command.Wait(5.0f)
         val script = Script(listOf(cmd))
 
         exec.execute(script)
@@ -35,7 +35,7 @@ class ScriptExecutorTests {
     fun testCaptureMultiple() {
         val (exec, sfx, ctl, sleep, logger) = createExecutor()
 
-        val cmd = ScriptCommand.CaptureMultiple(1.0f, 3, false)
+        val cmd = Command.CaptureMultiple(1.0f, 3, false)
         val script = Script(listOf(cmd))
 
         exec.execute(script)
@@ -49,7 +49,7 @@ class ScriptExecutorTests {
     fun testAudioSignal() {
         val (exec, sfx, ctl, sleep, logger) = createExecutor()
 
-        val cmd = ScriptCommand.AudioSignal(SoundEffect.Klaxon)
+        val cmd = Command.AudioSignal(SoundEffect.Klaxon)
         val script = Script(listOf(cmd))
 
         exec.execute(script)
@@ -61,7 +61,7 @@ class ScriptExecutorTests {
     fun testBlink() {
         val (exec, sfx, ctl, sleep, logger) = createExecutor()
 
-        val cmd = ScriptCommand.Blink(2.4f)
+        val cmd = Command.Blink(2.4f)
         val script = Script(listOf(cmd))
 
         exec.execute(script)

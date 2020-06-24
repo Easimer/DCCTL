@@ -13,7 +13,7 @@ import net.easimer.dcctl.databinding.AudioSignalCommandViewBinding
 import net.easimer.dcctl.databinding.BlinkCommandViewBinding
 import net.easimer.dcctl.databinding.CaptureMultipleCommandViewBinding
 import net.easimer.dcctl.databinding.WaitCommandViewBinding
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 import net.easimer.dcctl.scripting.SoundEffect
 
 /**
@@ -22,7 +22,7 @@ import net.easimer.dcctl.scripting.SoundEffect
  * @param deleteCallback Called when the view wants to delete itself (the user clicked on the
  * delete button)
  */
-sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCallback: (ScriptCommand) -> Unit) : ICommandView, LinearLayout(ctx) {
+sealed class CommandView<T : Command>(ctx: Context, private val deleteCallback: (Command) -> Unit) : ICommandView, LinearLayout(ctx) {
     protected abstract var cmd : T
 
     protected val inflater =
@@ -46,15 +46,15 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
         }
     }
 
-    class Wait(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
-        : CommandView<ScriptCommand.Wait>(ctx, deleteCallback) {
+    class Wait(ctx: Context, deleteCallback: (Command) -> Unit)
+        : CommandView<Command.Wait>(ctx, deleteCallback) {
         private val binding =
             WaitCommandViewBinding.inflate(inflater)
 
-        override var cmd = ScriptCommand.Wait(0.0f)
+        override var cmd = Command.Wait(0.0f)
 
-        override fun bindTo(cmd: ScriptCommand) {
-            if(cmd is ScriptCommand.Wait) {
+        override fun bindTo(cmd: Command) {
+            if(cmd is Command.Wait) {
                 this.cmd = cmd
                 binding.cmd = cmd
             }
@@ -66,15 +66,15 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
         }
     }
 
-    class CaptureMultiple(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
-        : CommandView<ScriptCommand.CaptureMultiple>(ctx, deleteCallback) {
+    class CaptureMultiple(ctx: Context, deleteCallback: (Command) -> Unit)
+        : CommandView<Command.CaptureMultiple>(ctx, deleteCallback) {
         private val binding =
             CaptureMultipleCommandViewBinding.inflate(inflater)
 
-        override var cmd = ScriptCommand.CaptureMultiple(0.0f, 0, false)
+        override var cmd = Command.CaptureMultiple(0.0f, 0, false)
 
-        override fun bindTo(cmd: ScriptCommand) {
-            if(cmd is ScriptCommand.CaptureMultiple) {
+        override fun bindTo(cmd: Command) {
+            if(cmd is Command.CaptureMultiple) {
                 this.cmd = cmd
                 binding.cmd = cmd
             }
@@ -86,8 +86,8 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
         }
     }
 
-    class AudioSignal(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
-        : CommandView<ScriptCommand.AudioSignal>(ctx, deleteCallback),
+    class AudioSignal(ctx: Context, deleteCallback: (Command) -> Unit)
+        : CommandView<Command.AudioSignal>(ctx, deleteCallback),
         AdapterView.OnItemSelectedListener {
         private val binding
                 =
@@ -96,12 +96,12 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
             )
 
         override var cmd =
-            ScriptCommand.AudioSignal(
+            Command.AudioSignal(
                 SoundEffect.Blip
             )
 
-        override fun bindTo(cmd: ScriptCommand) {
-            if(cmd is ScriptCommand.AudioSignal) {
+        override fun bindTo(cmd: Command) {
+            if(cmd is Command.AudioSignal) {
                 this.cmd = cmd
                 binding.cmd = cmd
             }
@@ -144,13 +144,13 @@ sealed class CommandView<T : ScriptCommand>(ctx: Context, private val deleteCall
         }
     }
 
-    class Blink(ctx: Context, deleteCallback: (ScriptCommand) -> Unit)
-        : CommandView<ScriptCommand.Blink>(ctx, deleteCallback) {
+    class Blink(ctx: Context, deleteCallback: (Command) -> Unit)
+        : CommandView<Command.Blink>(ctx, deleteCallback) {
         private val binding = BlinkCommandViewBinding.inflate(inflater)
-        override var cmd = ScriptCommand.Blink(0.0f)
+        override var cmd = Command.Blink(0.0f)
 
-        override fun bindTo(cmd: ScriptCommand) {
-            if(cmd is ScriptCommand.Blink) {
+        override fun bindTo(cmd: Command) {
+            if(cmd is Command.Blink) {
                 this.cmd = cmd
                 binding.cmd = cmd
             }

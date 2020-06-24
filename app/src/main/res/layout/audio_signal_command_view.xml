@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cmd"
-            type="net.easimer.dcctl.scripting.ScriptCommand.AudioSignal" />
+            type="net.easimer.dcctl.scripting.Command.AudioSignal" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

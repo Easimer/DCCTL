@@ -12,7 +12,7 @@ import net.easimer.dcctl.Log
 import net.easimer.dcctl.R
 import net.easimer.dcctl.protocol.broadcastScript
 import net.easimer.dcctl.scripting.Script
-import net.easimer.dcctl.scripting.ScriptCommand
+import net.easimer.dcctl.scripting.Command
 import net.easimer.dcctl.scripting.SoundEffect
 import java.util.*
 
@@ -20,7 +20,7 @@ class ScriptActivity : AppCompatActivity() {
     private lateinit var recyclerView : RecyclerView
     private lateinit var viewAdapter: CommandAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private val script = LinkedList<ScriptCommand>()
+    private val script = LinkedList<Command>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,19 +61,19 @@ class ScriptActivity : AppCompatActivity() {
 
         val cmd = when (item.itemId) {
             R.id.new_wait ->
-                ScriptCommand.Wait(5.0f)
+                Command.Wait(5.0f)
             R.id.new_capture_multiple ->
-                ScriptCommand.CaptureMultiple(
+                Command.CaptureMultiple(
                     1.0f,
                     3,
                     false
                 )
             R.id.new_audio_signal ->
-                ScriptCommand.AudioSignal(
+                Command.AudioSignal(
                     SoundEffect.Blip
                 )
             R.id.new_blink ->
-                ScriptCommand.Blink(0.5f)
+                Command.Blink(0.5f)
             else ->
                 null
         }
