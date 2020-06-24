@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.IBinder
+import androidx.lifecycle.LifecycleService
 import net.easimer.dcctl.*
 import net.easimer.dcctl.protocol.BluetoothServerStatisticsListener
 import net.easimer.dcctl.protocol.IBluetoothServer
 import net.easimer.dcctl.protocol.createBluetoothServer
 
-class CameraService : Service() {
+class CameraService : LifecycleService() {
     private val TAG = "CameraService"
     private val thread = HandlerThread("CameraServiceThread")
 
@@ -21,10 +22,6 @@ class CameraService : Service() {
     private lateinit var executor: ScriptExecutor
     private lateinit var notification : CameraServiceNotification
 
-    override fun onBind(intent: Intent): IBinder? {
-        return null
-    }
-
     override fun onCreate() {
         super.onCreate()
 
@@ -32,6 +29,8 @@ class CameraService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
+
         thread.start()
         handler = Handler(thread.looper)
 
