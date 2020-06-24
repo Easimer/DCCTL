@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.easimer.dcctl.Log
@@ -45,6 +46,8 @@ class ScriptActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = viewManager
             adapter = viewAdapter
+
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
