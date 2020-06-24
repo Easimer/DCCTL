@@ -73,6 +73,18 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
     cameraProviderFuture.addListener(Runnable {
         val cameraProvider = cameraProviderFuture.get()
+
+        // Dummy ImageAnalyzer
+        // According to https://developer.android.com/training/camerax/architecture#combine-use-cases :
+        // "ImageCapture doesn't work on its own, though Preview and ImageAnalysis do."
+        // So we need either a Preview or an ImageAnalysis. But we can't make a Preview
+        // because it would need a surface but we're running in a Service.
+        val analysis = ImageAnalysis.Builder()
+            .build()
+        analysis.setAnalyzer(ContextCompat.getMainExecutor(ctx), object : ImageAnalysis.Analyzer {
+            override fun analyze(image: ImageProxy) {}
+        })
+
         val imageCapture = ImageCapture.Builder()
             .setTargetRotation(Surface.ROTATION_90)
             .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
@@ -84,6 +96,7 @@ fun tryCreatingController(ctx: Context, handler: Handler, callback: (controller:
         val camera = cameraProvider.bindToLifecycle(
             ctx as LifecycleOwner,
             cameraSelector,
+            analysis,
             imageCapture
         )
 
