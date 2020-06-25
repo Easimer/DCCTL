@@ -2,6 +2,7 @@ package net.easimer.dcctl.camera
 
 import android.os.Handler
 import net.easimer.dcctl.IAudioNotifications
+import net.easimer.dcctl.IHandler
 import net.easimer.dcctl.ILogger
 import net.easimer.dcctl.protocol.ICommandSink
 import net.easimer.dcctl.scripting.Script
@@ -14,7 +15,7 @@ class ScriptExecutor(
     private val camera : ICameraController,
     private val sleep : IThreadSleep,
     private val log : ILogger,
-    private val handler : Handler
+    private val handler : IHandler
 ) : ICommandSink {
     private val TAG = "ScriptExecutor"
     private val cmdQueue = LinkedBlockingQueue<Command>()

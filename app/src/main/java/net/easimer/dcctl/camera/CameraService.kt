@@ -46,8 +46,13 @@ class CameraService : LifecycleService() {
                     }
                 }
 
+                val handlerProxy = object : IHandler {
+                    override fun post(r: () -> Unit): Boolean {
+                        return handler.post(r)
+                    }
+                }
                 controller = it
-                executor = ScriptExecutor(sfx, it, sleep, Log, handler)
+                executor = ScriptExecutor(sfx, it, sleep, Log, handlerProxy)
 
                 // Create the Bluetooth server
                 val btSrvSock = createServerSocket(this, SERVER_KIND_BLUETOOTH)

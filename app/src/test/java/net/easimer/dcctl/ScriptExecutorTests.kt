@@ -85,6 +85,12 @@ class ScriptExecutorTests {
         val sfx = mockk<IAudioNotifications>()
         val ctl = mockk<ICameraController>()
         val logger = mockk<ILogger>()
+        val handler = object : IHandler {
+            override fun post(r: () -> Unit): Boolean {
+                r()
+                return true
+            }
+        }
 
         every { sfx.onCommandReceived() } returns Unit
         every { sfx.onPictureTaken() } returns Unit
@@ -94,7 +100,7 @@ class ScriptExecutorTests {
         every { ctl.takePicture(any()) } returns Unit
         every { ctl.toggleFlash(any()) } returns Unit
 
-        val exec = ScriptExecutor(sfx, ctl, sleep, logger)
+        val exec = ScriptExecutor(sfx, ctl, sleep, logger, handler)
 
         return ExecutorContext(exec, sfx, ctl, sleep, logger)
     }
