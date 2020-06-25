@@ -15,6 +15,7 @@ class Serializer(private val stream : OutputStream) {
         val bytes = json.toByteArray(Charsets.UTF_8)
         val len = bytes.size.toLong()
         dos.writeLong(len)
+        dos.writeLong(0) // reserved field
         dos.write(bytes)
 
         dos.flush()

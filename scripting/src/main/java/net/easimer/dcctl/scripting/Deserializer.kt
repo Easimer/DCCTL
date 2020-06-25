@@ -9,6 +9,7 @@ class Deserializer(private val stream : InputStream) {
     fun deserialize(): Script? {
         val dis = DataInputStream(stream)
         val len = dis.readLong()
+        val reservedField = dis.readLong()
 
         if(len > 0) {
             val buf = ByteArray(len.toInt())
