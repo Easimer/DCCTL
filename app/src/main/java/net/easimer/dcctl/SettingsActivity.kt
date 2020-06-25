@@ -31,6 +31,11 @@ class SettingsActivity : AppCompatActivity() {
             categoryNet.key = "networking"
             screen.addPreference(categoryNet)
 
+            val categoryAdv = PreferenceCategory(context)
+            categoryAdv.title = getString(R.string.advanced)
+            categoryAdv.key = "advanced"
+            screen.addPreference(categoryAdv)
+
             MultiSelectListPreference(context).run {
                 title = getString(R.string.pref_excluded_devices)
                 key = "excluded_devices"
@@ -51,7 +56,7 @@ class SettingsActivity : AppCompatActivity() {
             CheckBoxPreference(context).run {
                 title = getString(R.string.pref_tcp_server)
                 key = "tcp_server_enabled"
-                categoryNet.addPreference(this)
+                categoryAdv.addPreference(this)
             }
 
             preferenceScreen = screen
