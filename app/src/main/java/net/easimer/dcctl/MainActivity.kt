@@ -13,15 +13,12 @@ import net.easimer.dcctl.scripting.ui.ScriptActivity
 const val MAIN_ACTIVITY_REQUEST_STOP_CAMERA_SERVICE = 1
 const val MAIN_ACTIVITY_EXTRA_REQUEST = "Request"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ActivityResultCallbackActivity() {
     val TAG = "MainActivity"
-    private lateinit var permReq : PermissionRequester
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        permReq = PermissionRequester(this)
 
         intent?.let {
             handleExtras(intent)
@@ -106,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     .setMessage(R.string.bluetooth_dialog_message)
                     .setPositiveButton(R.string.bluetooth_dialog_retry) { _, _ ->
                         // User clicked "retry", show the BT dialog again
-                        permReq.startActivityForResult(BluetoothAdapter.ACTION_REQUEST_ENABLE, { onBluetoothEnableRequestFinished() })
+                        startActivityForResult(BluetoothAdapter.ACTION_REQUEST_ENABLE, { onBluetoothEnableRequestFinished() })
                     }
                     .setNegativeButton(R.string.bluetooth_dialog_ok) { _, _ ->
                         // User acknowledged the fact that we can't function without bluetooth
@@ -124,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                     CameraServiceManager.startIfDoesntExist(this)
                 } else {
                     // Bluetooth is off, ask user to enable it
-                    permReq.startActivityForResult(
+                    startActivityForResult(
                         BluetoothAdapter.ACTION_REQUEST_ENABLE,
                         { onBluetoothEnableRequestFinished() })
                 }
@@ -136,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 .setMessage(R.string.camera_permission_dialog_message)
                 .setPositiveButton(R.string.camera_permission_dialog_retry) { _, _ ->
                     // User clicked "retry", try asking for camera perms again
-                    permReq.requestPermissions(arrayOf(Manifest.permission.CAMERA)) { granted ->
+                    requestPermissions(arrayOf(Manifest.permission.CAMERA)) { granted ->
                         onCameraPermissionsRequestFinished(
                             Manifest.permission.CAMERA in granted
                         )
@@ -150,22 +147,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestPermissionsAndStartService() {
-        permReq.requestPermissions(arrayOf(Manifest.permission.CAMERA)) { granted ->
+        requestPermissions(arrayOf(Manifest.permission.CAMERA)) { granted ->
             onCameraPermissionsRequestFinished(Manifest.permission.CAMERA in granted)
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permReq.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        permReq.onActivityResult(requestCode, resultCode, data)
     }
 }
