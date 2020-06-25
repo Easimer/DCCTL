@@ -37,4 +37,19 @@
     <string name="notification_stat_times_blinked">Blinked %d times</string>
     <string name="cfg_flash">Flash</string>
     <string name="pref_tcp_server">Enable TCP server</string>
+    <string name="camera_permission_dialog_title">Permission denied</string>
+    <string name="camera_permission_dialog_message">
+        Without this permission the app is unable to use the camera.
+        Are you sure you want to deny this permission?
+    </string>
+    <string name="camera_permission_dialog_retry">Try again</string>
+    <string name="camera_permission_dialog_yes">Yes</string>
+    <string name="bluetooth_dialog_title">Bluetooth is disabled</string>
+    <string name="bluetooth_dialog_message">
+        With Bluetooth disabled this app won\'t be able to send or receive scripts.
+    </string>
+    <string name="bluetooth_dialog_retry">Try again</string>
+    <string name="bluetooth_dialog_ok">OK</string>
+    <string name="ok">OK</string>
+    <string name="no_thanks">No thanks</string>
 </resources>
