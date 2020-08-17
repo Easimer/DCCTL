@@ -10,7 +10,7 @@ class Serializer(private val stream : OutputStream) {
 
         val serializer = Script.serializer()
 
-        val json = Json.stringify(serializer, script)
+        val json = Json.encodeToString(serializer, script)
 
         val bytes = json.toByteArray(Charsets.UTF_8)
         val len = bytes.size.toLong()

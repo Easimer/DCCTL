@@ -1,11 +1,9 @@
 package net.easimer.dcctl.scripting
 
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import java.io.*
 
 class Deserializer(private val stream : InputStream) {
-    @UnstableDefault
     fun deserialize(): Script? {
         val dis = DataInputStream(stream)
         val len = dis.readLong()
@@ -17,8 +15,8 @@ class Deserializer(private val stream : InputStream) {
             val deserializer = Script.serializer()
 
             val json = String(buf, Charsets.UTF_8)
-            val j = Json.parseJson(json)
-            return Json.Default.fromJson(deserializer, j)
+            val j = Json.parseToJsonElement(json)
+            return Json.Default.decodeFromJsonElement(deserializer, j)
         } else {
             return null
         }

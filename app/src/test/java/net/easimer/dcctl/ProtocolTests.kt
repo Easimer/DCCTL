@@ -1,11 +1,11 @@
 package net.easimer.dcctl
 
-import kotlinx.io.ByteArrayInputStream
-import kotlinx.io.ByteArrayOutputStream
 import net.easimer.dcctl.scripting.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 
 /**
  * Tests for script serialization/deserialization.
